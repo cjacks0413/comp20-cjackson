@@ -16,19 +16,16 @@ function printInfo(entry)
 		var parentElement = document.getElementById('status');
 		var theFirstChild = parentElement.firstChild;
 		
-		var para = document.createElement("p");
-		var nextEntry = document.createTextNode(entry);
-		para.appendChild(nextEntry); 
+		var date = d.getMonth() + slash + d.getDate()
+	    + slash + d.getFullYear() + " " + d.getHours() + colon + d.getMinutes() +
+		" " + dash + " ";  
 		
-	    
+		var userEntry = date + entry;
+		var para = document.createElement("p");
+		var nextEntry = document.createTextNode(userEntry);
+		para.appendChild(nextEntry); 		
 	    parentElement.insertBefore(para, theFirstChild);  
 		}
-<!--		insertBefore(entry, document.getElementById('status').firstChild); -->
-<!--		document.getElementById('status').appendChild(nextEntry);-->
-
-<!--    document.getElementById('status').innerHTML = d.getMonth() + slash + d.getDay()
-<!--	+ slash + d.getFullYear() + " " + d.getHours() + colon + d.getMinutes() +
-<!--	" " + dash + " " + userEntry; -->
 
 }
 </script>
