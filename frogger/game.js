@@ -36,7 +36,7 @@ function start_status()
 {
 	var start = document.getElementById('game');
 	var ctx3 = start.getContext('2d');
-	ctx3.fillStyle = "white"; 
+	ctx3.fillStyle = "#33FF00"; 
 	ctx3.font = '18pt Arial';
 <!-- abstract out which level, how many lives, score, and Highscore --> 
 	ctx3.fillText("Level 1", 60, 535); 
