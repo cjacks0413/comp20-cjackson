@@ -2,25 +2,42 @@
 sprite = new Image();
 sprite.src = "assets/frogger_sprites.png"; 
 
+//global variables
+frog_x = 0;
+frog_y = 0; 
+numLives = 3; 
+level = 1; 
+score = 0; 
+highScore = 0;
+numSafeFrogs = 0; 
+time = 120; 
+speedLogs = 500; 
+speedCars = 500; 
 
-//if round is over...
-//call start game 
-
+//re-call whenever there is a new round or the game is over
 function start_game()
+{
+	 draw_game(); 	 
+}
+//re-call constantly whenever user input/moves change
+function draw_game()
 {
     canvas = document.getElementById('game');
 	if (canvas.getContext) {
 		ctx = canvas.getContext('2d');
-		numLives = 3; 
-		render_frame(); 
-		level = check_level(); 
-		render_logs(level); 
-		render_cars(level); 
-	//render text based on level and other things
-		render_changes(level,numLives); 
-	//render lilypads??  
+		render_background(); 
+		//determine user move, adjust coordinates accordingly--starting position:
+			frog_x = 200;
+			frog_y = 475; 
+		render_frog_position(frog_x, frog_y); 
+		render_logs(); 
+		render_cars(); 
+		render_footer(); 
+	//render lilypads
 	}
-	//else statement if browser doesn't support
+	else {
+		alert('Your browser does not support canvas.');
+	}
 	
 }
 
@@ -34,25 +51,26 @@ function add_colors()
 	ctx.fillRect(0, 290, 400, 280)
 }
 
-function render_frame()
+function render_background()
 {
 	add_colors(); 
-	//frogger title, lilypads, and sidewalks
+	//frogger title, lilypads, and roadsides 
 	ctx.drawImage(sprite, 0, 0, 350, 50, 0, 0, 350, 50); 
 	ctx.drawImage(sprite, 0, 50, 395, 50, 0, 50, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 275, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 475, 400, 50);
-	//starting frog position 
-	ctx.drawImage(sprite, 0, 360, 45, 30, 200, 475, 30, 40); 
 
 }
 
-function check_level()
+function render_frog_position(frog_x, frog_y) 
 {
-	return 1; 
+
+	ctx.drawImage(sprite, 0, 360, 45, 30, frog_x, frog_y, 30, 40); 
+
 }
 
-function render_logs(level) 
+
+function render_logs() 
 {
 	//changes setup according to level
 	//depends on how many levels--there can be a case for each range 
@@ -60,14 +78,15 @@ function render_logs(level)
 	if (level == 1) {
 			//more logs in future
 			ctx.drawImage(sprite, 0, 155, 300, 40, 40, 150, 250, 50); 
-			//set speed
+			//set speed: 
+			//setInterval(move_logs, speedLogs);
 	}		
 	
 	//if (level == 2)...
 
 }
 
-function render_cars(level)
+function render_cars()
 {
 	//similar to render_logs
 	
@@ -75,11 +94,12 @@ function render_cars(level)
 		//more cars in future
 		ctx.drawImage(sprite, 40, 260, 40, 40, 30, 350, 40, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, 190, 410, 60, 40); 
-	    //set speed 
+	    //set speed: 
+	    //setInterval(move_cars, speedCars); 
 	}
 }
 
-function render_changes(level, numLives)
+function render_footer()
 {
 	start = document.getElementById('game');
 	ctx = start.getContext('2d');
@@ -90,28 +110,28 @@ function render_changes(level, numLives)
 	ctx.fillText(currentLevel, 70, 535); 
 	//scores
 	ctx.font = '12pt Arial';
-	currentScore = "Score: " + getScore(); 
+	currentScore = "Score: " + score; 
 	ctx.fillText(currentScore, 0, 560); 
-	currentHighScore = "Highscore: " + getHighScore(); 
-	ctx.fillText(currentHighScore, 75, 560); 
-	//lives...how to make this efficient? 
-	ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
-	ctx.drawImage(sprite, 0, 330, 35, 30, 20, 510, 30, 25); 
-	//time bar
-	
+	currentHighScore = "Highscore: " + highScore; 
+	ctx.fillText(currentHighScore, 100, 560); 
+	//lives
+	if (numLives == 3) { 
+		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
+		ctx.drawImage(sprite, 0, 330, 35, 30, 15, 510, 30, 25); 
+		ctx.drawImage(sprite, 0, 330, 35, 30, 30, 510, 30, 25); 
+	}
+	if (numLives == 2) {
+		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25);
+		ctx.drawImage(sprite, 0, 330, 35, 30, 15, 510, 30, 25);
+	}
+	if (numLives == 1) {
+		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
+	}
 
 }
-//how to get/keep track of this?
-function getHighScore() 
-{
-	return 0; 
-}
-//how to get/keep track of this? 
-function getScore()
-{
-	return 0; 
-}
 
+
+//determine when game board should be re-initialized
 function is_new_round(time, numSafeFrogs)
 {
 	if (time == 0) {
