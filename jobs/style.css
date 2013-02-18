@@ -1,0 +1,22 @@
+#newtable {
+	background-color: #87CEEB; 
+	opacity: 0.6;
+	font-family: calibri;
+	font-size: large; 
+	
+}
+
+#newtable td {
+	width: 300px;
+	height: 100px; 
+	text-align: center;
+	padding: 5px; 
+	border-spacing: 0;
+	border-bottom: 1px solid black; 
+	border-top: 1px solid; 
+}
+
+
+body {
+	background-color: #708090; 
+	}
