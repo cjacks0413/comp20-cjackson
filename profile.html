@@ -5,24 +5,24 @@
 <head>
 <title>Fecesbook</title>
 <script>
-var d = new Date;
-var slash = "/"; 
-var space = " "; 
-var colon = ":";  
-var dash = "-"; 
+d = new Date;
+slash = "/"; 
+space = " "; 
+colon = ":";  
+dash = "-"; 
 function printInfo(entry)
 {
 	if (document.createTextNode) {
-		var parentElement = document.getElementById('status');
-		var theFirstChild = parentElement.firstChild;
+		parentElement = document.getElementById('status');
+		theFirstChild = parentElement.firstChild;
 		
-		var date = d.getMonth() + slash + d.getDate()
+		date = d.getMonth() + slash + d.getDate()
 	    + slash + d.getFullYear() + " " + d.getHours() + colon + d.getMinutes() +
 		" " + dash + " ";  
 		
-		var userEntry = date + entry;
-		var para = document.createElement("p");
-		var nextEntry = document.createTextNode(userEntry);
+		userEntry = date + entry;
+		para = document.createElement("p");
+		nextEntry = document.createTextNode(userEntry);
 		para.appendChild(nextEntry); 		
 	    parentElement.insertBefore(para, theFirstChild);  
 		}
