@@ -3,8 +3,8 @@ myLng = 0;
 request = new XMLHttpRequest();
 iamHere = new google.maps.LatLng(myLat, myLng);
 mapOptions = {
-		zoom:7,
-		center:me,
+		zoom:11,
+		center:iamHere,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 map;
@@ -16,7 +16,6 @@ function init()
 {
 	map = new google.maps.Map(document.getElementById("map"), mapOptions); 
 	findMyPosition();
-	alert("Called Init");
 }
 
 function findMyPosition()
@@ -42,7 +41,7 @@ function renderMap()
 	marker = new google.maps.Marker({
 		position: me,
 		title:"I Am Here",
-		})
+		});
 	marker.setMap(map);
 	
 	//info markers for redLine station?
