@@ -17,6 +17,7 @@ function findMyPosition()
 {
 	//geolocation, do check if supported on browser 
 	renderMap();
+	parse_stops();
 }
 
 function renderMap() 
@@ -24,6 +25,20 @@ function renderMap()
 	curLocation = new google.maps.LatLng(myLat, myLng);
 	map.panTo(curLocation);
 	renderRedLine();
+}
+
+function parse_stops()
+{
+	request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
+	request.send(null);
+	request.onreadystatechange = callback; 
+}
+function callback()
+{
+	str = request.responseText; 
+	console.log(str);
+	stops = JSON.parse(str);
+
 }
 
 function renderRedLine()
@@ -153,7 +168,7 @@ function renderRedLine()
 	shaw = new google.maps.Marker ({
 		position: shawmut,
 		title: "Shawmut Station", 
-		icon: imagee
+		icon: image
 		});
 	shaw.setMap(map);
 	//Ashmont
