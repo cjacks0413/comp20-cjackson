@@ -2,12 +2,18 @@ myLat = 42.39500; //for now near davis square
 myLng = -71.121815;
 
 request = new XMLHttpRequest(); 
+request2 = new XMLHttpRequest(); 
 var redStations = []; 
 var redAshmont = [];
 var redBraintree = [];
 var markers = []; 
 var stops; 
 var infowindow = new google.maps.InfoWindow(); 
+
+var CarmenLat = 42.33058;
+var CarmenLng = -71.06633;
+var WaldoLat = 42.39650;
+var WaldoLng = -71.121824; 
 /*
 function getMyLocation()
 {
@@ -52,17 +58,19 @@ function findMyPosition()
 {
 	//geolocation, do check if supported on browser 
 	renderMap();
-	parse_stops();
+	test = parse_stops();
+	console.log(test); 
 }
 
 function renderMap() 
 {
 	curLocation = new google.maps.LatLng(myLat, myLng);
-	parse_stops();
+//	parse_stops();
 	map.panTo(center);
 	renderRedLine();
+	findCarmenAndWaldo();
 }
-
+/*
 function parse_stops()
 {
 	request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
@@ -76,6 +84,58 @@ function callback()
 		str = request.responseText; 
 		stops = JSON.parse(str);
 	}
+}*/ 
+function findCarmenAndWaldo()
+{
+	var waldo = {
+		url: 'waldo.png',
+		size: new google.maps.Size(71, 71),
+		origin: new google.maps.Point(0,0),
+		anchor: new google.maps.Point(17, 34),
+		scaledSize: new google.maps.Size(25,25)
+		};
+		
+	var carmen = {
+		url: 'carmen-sandiego.png',
+		size: new google.maps.Size(71, 71),
+		origin: new google.maps.Point(0,0),
+		anchor: new google.maps.Point(17, 34),
+		scaledSize: new google.maps.Size(25,25)
+		};
+		
+/*	request2.open("GET", "http://messagehub.herokuapp.com/a3.json", true);
+	request2.send(null);
+	request2.onreadystatechange = callback2;*/ 
+	
+	Waldo = new google.maps.LatLng(WaldoLat, WaldoLng);
+	WaldoMarker = new google.maps.Marker ({
+		position: Waldo, title: "Here's Waldo!", icon: waldo }); 
+	WaldoMarker.setMap(map);
+	console.log(WaldoMarker); 
+	wInfo = new google.maps.InfoWindow(); 
+	google.maps.event.addListener(WaldoMarker, 'click', function() {
+		wInfo.setContent(WaldoMarker.title), 
+		wInfo.open(map, WaldoMarker)
+		}); 
+	Carmen = new google.maps.LatLng(CarmenLat, CarmenLng); 
+	CarmenMarker = new google.maps.Marker ({
+		position: Carmen, title: "Here's Carmen!", icon: carmen}); 
+	CarmenMarker.setMap(map); 
+	cInfo = new google.maps.InfoWindow();
+	google.maps.event.addListener(CarmenMarker, 'click', function() {
+		cInfo.setContent(CarmenMarker.title), 
+		console.log(cInfo),
+		console.log(CarmenMarker.title),
+		cInfo.open(map, CarmenMarker)
+		});
+}		
+	
+
+
+function callback2()
+{
+	//do stuff 
+
 }
 
 function renderRedLine()
@@ -88,122 +148,101 @@ function renderRedLine()
 		scaledSize: new google.maps.Size(25, 25)
 		};
 		
-	//alewife
 	alewife = new google.maps.LatLng(42.395428, -71.142483); 
 	redStations.push(alewife); 
-	alew = new google.maps.Marker ({position: alewife, title: "Alewife Station", icon: image }); 
-	markers.push(alew); 
-	//porter
+	markers.push(new google.maps.Marker ({position: alewife, title: "Alewife Station", icon: image})); 
+
 	porter = new google.maps.LatLng(42.39674,-71.121815); 
 	redStations.push(porter); 
-	port = new google.maps.Marker ({position: porter, title: "Porter Station", icon: image});
-	markers.push(port); 
-	//harvard
+	markers.push(new google.maps.Marker({position: porter, title: "Porter Station", icon: image}));
+
 	harvard = new google.maps.LatLng(42.373362, -71.118956);
 	redStations.push(harvard); 
-	harv = new google.maps.Marker ({position: harvard, title: "Harvard Station", icon: image});
-	markers.push(port); 
-	//central
+	markers.push(new google.maps.Marker ({position: harvard, title: "Harvard Station", icon: image}));
+
 	central = new google.maps.LatLng(42.365486, -71.10382); 
 	redStations.push(central); 
-	cent = new google.maps.Marker ({position: central, title: "Central Station", icon: image});
-	markers.push(cent); 
-	//kendall
+	markers.push(new google.maps.Marker ({position: central, title: "Central Station", icon: image}));
+	
 	kendall = new google.maps.LatLng(42.365486, -71.10382);
 	redStations.push(kendall);
-	kend = new google.maps.Marker ({position: kendall,title: "Kendall Station", icon: image});
-	markers.push(kend); 
-	//charlesmgh
+	markers.push(new google.maps.Marker ({position: kendall,title: "Kendall Station", icon: image}));
+
 	mgh = new google.maps.LatLng(42.361166, -71.070628);
 	redStations.push(mgh); 
-	mgh = new google.maps.Marker ({position: mgh,title: "Charles/MGH Station", icon: image});
-	markers.push(mgh); 
-	//Park
+	markers.push(new google.maps.Marker ({position: mgh,title: "Charles/MGH Station", icon: image}));
+
 	park = new google.maps.LatLng(42.35639457, -71.0624242);
 	redStations.push(park);
-	park = new google.maps.Marker ({position: park,title: "Park St. Station", icon: image
-		});
-	markers.push(park); 
-	//downtown
+	markers.push(new google.maps.Marker ({position: park,title: "Park St. Station", icon: image}));
+
 	downtown = new google.maps.LatLng(42.355518, -71.060225);
 	redStations.push(downtown);
-	dwtn = new google.maps.Marker ({position: downtown,title: "Downtown Crossing Station",icon: image
-		});
-	markers.push(dwtn); 
-	//South
+	markers.push(new google.maps.Marker ({position: downtown,title: "Downtown Crossing Station",icon: image
+		}));
+
 	south = new google.maps.LatLng(42.352271, -71.055242);
 	redStations.push(south); 
-	south = new google.maps.Marker ({position: south,title: "South Station", icon: image});
-	markers.push(south); 
-	//Broadway
+	markers.push(new google.maps.Marker ({position: south,title: "South Station", icon: image}));
+
 	broadway = new google.maps.LatLng(42.342622,-71.056967);
 	redStations.push(broadway); 
-	brd = new google.maps.Marker ( {position: broadway,title: "Broadway Station", icon: image});
-	markers.push(brd); 
-	//Andrew
+	markers.push(new google.maps.Marker ( {position: broadway,title: "Broadway Station", icon: image}));
+
 	andrew = new google.maps.LatLng(42.330154,-71.057655);
 	redStations.push(andrew); 
-	andr = new google.maps.Marker ({position: andrew,title: "Andrew Station", icon: image});
-	markers.push(andr); 
-	//JFK
+	markers.push(new google.maps.Marker ({position: andrew,title: "Andrew Station", icon: image}));
+
 	jfk = new google.maps.LatLng(42.320685, -71.052391);
 	redStations.push(jfk); 
 	redAshmont.push(jfk);
 	redBraintree.push(jfk); 
-	jfk = new google.maps.Marker ({position: jfk,title: "JFK Station", icon: image});
-	markers.push(jfk); 
-	//Savin Hill
+	markers.push(new google.maps.Marker ({position: jfk,title: "JFK Station", icon: image}));
+	
 	savin = new google.maps.LatLng(42.31129, -71.053331);
 	redAshmont.push(savin); 
-	savin = new google.maps.Marker ({position: savin,title: "Savin Hill Station", icon: image});
-	markers.push(savin); 
-	//Fields Corner
+	markers.push(new google.maps.Marker ({position: savin,title: "Savin Hill Station", icon: image}));
+
 	fields = new google.maps.LatLng(42.300093, -71.061667);
 	redAshmont.push(fields); 
-	felc = new google.maps.Marker ({position: fields,title: "Fields Corner Station", icon: image});
-	markers.push(felc); 
-	//Shawmut
+	markers.push(new google.maps.Marker ({position: fields,title: "Fields Corner Station", icon: image}));
+
 	shawmut = new google.maps.LatLng(42.2931258, -71.065738);
 	redAshmont.push(shawmut); 
-	shaw = new google.maps.Marker ({position: shawmut,title: "Shawmut Station", icon: image});
-	markers.push(shaw); 
-	//Ashmont
+	markers.push(new google.maps.Marker ({position: shawmut,title: "Shawmut Station", icon: image}));
+
 	ashmont = new google.maps.LatLng(42.284652, -71.064489); 
 	redAshmont.push(ashmont); 
-	ashm = new google.maps.Marker ({position: ashmont,title: "Ashmont Station", icon: image});
-	markers.push(ashm); 
-	//North Quincy 
+	markers.push(new google.maps.Marker ({position: ashmont,title: "Ashmont Station", icon: image}));
+
 	nquincy = new google.maps.LatLng(42.275275, -71.029583);
 	redBraintree.push(nquincy); 
-	nquin = new google.maps.Marker ({position: nquincy,title: "North Quincy Station", icon: image});
-	markers.push(nquin); 
-	//Wollaston
+	markers.push(new google.maps.Marker ({position: nquincy,title: "North Quincy Station", icon: image}));
+
 	wollaston = new google.maps.LatLng(42.2665139, -71.02033); 
 	redBraintree.push(wollaston); 
-	woll = new google.maps.Marker ({position: wollaston,title: "Wollaston Station", icon: image});
-	markers.push(woll); 
-	//Quincy Center
+	markers.push(new google.maps.Marker ({position: wollaston,title: "Wollaston Station", icon: image}));
+
 	quincenter = new google.maps.LatLng(42.251809, -71.005409);
 	redBraintree.push(quincenter); 
-	qcen = new google.maps.Marker ({position: quincenter,title: "Quincy Center Station",icon: image});
-	markers.push(qcen); 
-	//Quincy adams
+	markers.push(new google.maps.Marker ({position: quincenter,title: "Quincy Center Station",icon: image}));
+
 	quinadams = new google.maps.LatLng(42.233391, -71.007153);
 	redBraintree.push(quinadams); 
-	qadam = new google.maps.Marker ({position: quinadams,title: "Quincy Adams Station",icon: image});
-	markers.push(qadam); 
-	//Braintree
+	markers.push(new google.maps.Marker ({position: quinadams,title: "Quincy Adams Station",icon: image}));
+
 	braintree = new google.maps.LatLng(42.2078543, -71.001139); 
 	redBraintree.push(braintree); 
-	btree = new google.maps.Marker ({position: braintree,title: "Braintree Station",icon: image });
-	markers.push(btree); 
-	
+	markers.push(new google.maps.Marker ({position: braintree,title: "Braintree Station",icon: image }));
+ 
+//polyline	
 redLine = new google.maps.Polyline({
 	path: redStations,
 	strokeColor: "red",
 	strokeOpacity: 1.0,
 	strokeWeight: 10
 	});
+	
 	redLine.setMap(map); 
 redAshmontBranch = new google.maps.Polyline({
 	path: redAshmont,
@@ -219,16 +258,29 @@ redBraintreeBranch = new google.maps.Polyline({
 	strokeWeight: 10,
 	});
 	redBraintreeBranch.setMap(map); 
-	
+
+//markers 	
 for (var m in markers) {
 	markers[m].setMap(map);
 	google.maps.event.addListener(markers[m], 'click', function() {
-			content = this.title;
+			nameOfStop = this.title;
 			object = this;
+			request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
+			request.send(null);
+			request.onreadystatechange = function() {
+				 	if(request.readyState == 4 && request.status == 200) {
+				 	content = nameOfStop; 
+					str = request.responseText; 
+					stops = JSON.parse(str);
+					}
+			}
 			infowindow.setContent(content);
 			infowindow.open(map, object);
 			}); 
-	}	
-	
-} 
+	}
+}
+
+
+
+
 
