@@ -88,8 +88,6 @@ function placeMe() {
 	map.panTo(me); 
 //	renderMap(); 
 	distR = findClosestStop(); 
-	console.log("distR");
-	console.log(distR); 
 	//set up content
 	content = meMarker.title + myLat + ", " + myLng + "! ";
 	if(distR > 5) {
@@ -108,8 +106,6 @@ function placeMe() {
 
 function renderMap() 
 {
-//	curLocation = new google.maps.LatLng(myLat, myLng);
-//	map.panTo(me);
 	renderRedLine();
 	findCarmenAndWaldo();
 
@@ -206,8 +202,6 @@ function callback2()
 }
 function getDistanceFromPoint(myLat, myLng, lat2, lng2)
 {
-	console.log("in get distance from point "); 
-	console.log(myLat, myLng, lat2, lng2); 
 	var R = 3961;
 	var dLat = deg2rad(lat2 - myLat);
 	var dLon = deg2rad(lng2 - myLng);
@@ -217,8 +211,6 @@ function getDistanceFromPoint(myLat, myLng, lat2, lng2)
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	var distance = R * c;
-	console.log("distance "); 
-	console.log(distance); 
 	return distance; 
 }	
 
@@ -234,18 +226,13 @@ function findClosestStop()
 	var curr;  
 	var stationName; 
 	var allInfo = {closest: 5, stationName: ""}; 
-	console.log(markers); 
 	for(i=0;i<markers.length;i++){
-		console.log(myLat,myLng, markers[i].position.jb,markers[i].position.ib); 
 		curr = getDistanceFromPoint(myLat,myLng,markers[i].position.ib,markers[i].position.jb);
-		console.log(curr); 
 		if(curr < closest) {
 			closest = curr;
 			stationName = markers[i].title;
 		} 
 	}
-	console.log("in closest");
-	console.log(closest); 
 	allInfo.closest = closest;
 	allInfo.stationName = stationName;
 	return allInfo; 
@@ -408,10 +395,10 @@ for (var m in markers) {
 			function useData(stops) {
 				for(i=0;i<stops.length;i++) {
 					if(object.keyNorth == stops[i].PlatformKey) {
-						mapContent += '<tr><td>"NORTHBOUND"' + '</td><td>' + stops[i].Time + '</td></tr>';
+						mapContent += '<tr><td>NORTHBOUND</td><td>' + stops[i].Time + '</td></tr>';
 					}
 					if(object.keySouth == stops[i].PlatformKey) {
-						mapContent += '<tr><td>"SOUTHBOUND"' + '</td><td>' + stops[i].Time + '</td></tr>';
+						mapContent += '<tr><td>SOUTHBOUND</td><td>' + stops[i].Time + '</td></tr>';
 					}
 				}
 				infowindow.setContent(mapContent);
