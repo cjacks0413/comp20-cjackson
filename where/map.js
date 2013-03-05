@@ -290,7 +290,7 @@ function renderRedLine()
 	markers.push(new google.maps.Marker({position: davis, title: "Davis Station", 
 	keyNorth: "RDAVN", keySouth: "RDAVS", icon: image})); 
 	
-	porter = new google.maps.LatLng(42.39674,-71.121815); 
+	porter = new google.maps.LatLng(42.3882,-71.119149); 
 	redStations.push(porter); 
 	markers.push(new google.maps.Marker({position: porter, title: "Porter Station", 
 	keyNorth: "RPORN", keySouth: "RPORS", icon: image}));
@@ -426,21 +426,22 @@ for (var m in markers) {
 		//	console.log(this.title); 
 			object = this;
 			mapContent = this.title;
+			mapContent += '<table id ="schedule"><tr><th>Direction</th><th>Arrival Time</th></tr>';
 		//	var content = this.title; 
 		//	console.log(this.title); 
 			//object = this;
 			function useData(stops) {
-				console.log(object.keyNorth); 
-				if(object.keyNorth == stops[i].PlatformKey) {
-					mapContent += " NORTHBOUND " + stops[i].TimeRemaining;
-					console.log(content);
-					
+//				console.log(object.keyNorth); 
+				for(i=0;i<stops.length;i++) {
+					if(object.keyNorth == stops[i].PlatformKey) {
+						mapContent += '<tr><td>"NORTHBOUND"' + '</td><td>' + stops[i].Time + '</td></tr>';
+					}
+					if(object.keySouth == stops[i].PlatformKey) {
+						mapContent += '<tr><td>"SOUTHBOUND"' + '</td><td>' + stops[i].Time + '</td></tr>';
+					}
 				}
-				if(object.keySouth == stops[i].PlatformKey) {
-					content += "SOUTHBOUND " + stops[i].TimeRemaining;
-					console.log(content);
-				}
-				i++;
+				infowindow.setContent(mapContent);
+				infowindow.open(map, object); 
 			}
 			request.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json", true);
 			request.send(null);
@@ -453,8 +454,10 @@ for (var m in markers) {
 //					makeData(stops, markers[m]);
 					}
 			}			
-			infowindow.setContent(mapContent);
-			infowindow.open(map, object);
+/*			infowindow.setContent("<p>Test</p>");
+			console.log("endcontent"); 
+			console.log(mapContent); 
+			infowindow.open(map, object);*/ 
 			}); 
 		}
 
