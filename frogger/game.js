@@ -11,36 +11,64 @@ score = 0;
 highScore = 0;
 numSafeFrogs = 0; 
 time = 120; 
-speedLogs = 500; 
+speedLogs = 60; 
 speedCars = 500; 
+startLeft = -160
+//interval = 60; 
+canvasX = 399;
+canvasY = 565; 
+//log variables
+medLogX = 155;
+medLogY = 300; 
+boardLogX = 250; 
+boardLogY = 50;
+posLogX = 40; 
+posLogY = 160;
+pos3 = 80; 
 
-//re-call whenever there is a new round or the game is over
+//allSprites = new Array();
+
 function start_game()
 {
-	 draw_game(); 	 
+	 canvas = document.getElementById('game');
+	 if (canvas.getContext) {
+	 	ctx = canvas.getContext('2d');
+	 }
+	 else {
+	 	alert ('Your browser does not support canvas.');
+	 }
+	 setInterval(draw_game, 30); 	 
 }
 //re-call constantly whenever user input/moves change
 function draw_game()
 {
-    canvas = document.getElementById('game');
-	if (canvas.getContext) {
-		ctx = canvas.getContext('2d');
+//    canvas = document.getElementById('game');
+//	if (canvas.getContext) {
+//		ctx = canvas.getContext('2d');
+//		ctx.clearRect(0,0,canvasX, canvasY); 
 		render_background(); 
 		//determine user move, adjust coordinates accordingly--starting position:
 			frog_x = 200;
 			frog_y = 475; 
+//		pos1 += 3; 
+//		pos2 += 3;
+//		pos3 += 3; 
 		render_frog_position(frog_x, frog_y); 
-		render_logs(); 
+		render_logs(); //(pos1, pos2, pos3) etc.  
 		render_cars(); 
 		render_footer(); 
 	//render lilypads
-	}
-	else {
-		alert('Your browser does not support canvas.');
-	}
+//	}
+//	else {
+//		alert('Your browser does not support canvas.');
+//	}
 	
 }
-
+/*
+function start_animation()
+{
+	setInterval(render_logs, speedLogs); 
+}*/ 
 function add_colors()
 {
 	canColor = document.getElementById('game');
@@ -64,27 +92,24 @@ function render_background()
 
 function render_frog_position(frog_x, frog_y) 
 {
-
+/*	if((pos1 > canvasX) || (pos2 > canvasX) || (pos3 > canvasX)) {
+		 pos1 = startLeft;
+		 pos2 = startLeft;
+		 pos3 = startLeft;
+		 } */ 
 	ctx.drawImage(sprite, 0, 360, 45, 30, frog_x, frog_y, 30, 40); 
 
 }
 
-
 function render_logs() 
 {
-	//changes setup according to level
-	//depends on how many levels--there can be a case for each range 
-	//of levels or a different case for every level
-	if (level == 1) {
-			//more logs in future
-			ctx.drawImage(sprite, 0, 155, 300, 40, 40, 150, 250, 50); 
-			//set speed: 
-			//setInterval(move_logs, speedLogs);
-	}		
-	
-	//if (level == 2)...
-
+	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 40, 125, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 180, 90, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 150, 165, boardLogX, boardLogY); 	
+	ctx.drawImage(sprite, 0, 190, 250, 38, 40, 205, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 160, 200, 38, 140, 240, 250, 50); 
 }
+
 
 function render_cars()
 {
