@@ -21,7 +21,7 @@ canvasY = 565;
 medLogX = 155;
 medLogY = 300; 
 boardLogX = 250; 
-boardLogY = 50;
+boardLogY = 40;
 posLogX = 40; 
 posLogY = 160;
 pos3 = 80; 
@@ -103,22 +103,39 @@ function render_frog_position(frog_x, frog_y)
 
 function render_logs() 
 {
-	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 40, 125, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 180, 90, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, medLogX, medLogY, 40, 150, 165, boardLogX, boardLogY); 	
+	row3 = 165;
+	ctx.drawImage(sprite, 0, 155, 300, 40, 40, 125, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, 180, 90, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, 150, 165, boardLogX, boardLogY); 	
+	ctx.drawImage(sprite, 0, 155, 300, 40, -100, row3, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 190, 250, 38, 40, 205, boardLogX, boardLogY);
-	ctx.drawImage(sprite, 0, 160, 200, 38, 140, 240, 250, 50); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, 200, 205, 250, 35); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, 150, 240, 240, 40); 
 }
 
 
 function render_cars()
 {
 	//similar to render_logs
-	
+	row1 = 445
+	row2 = 410
+	row3 = 375
+	row4 = 340
+	row5 = 305;
 	if (level == 1) {
 		//more cars in future
-		ctx.drawImage(sprite, 40, 260, 40, 40, 30, 350, 40, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, 190, 410, 60, 40); 
+		ctx.drawImage(sprite, 40, 260, 40, 40, 30, row4, 40, 40); 
+	    ctx.drawImage(sprite, 40, 260, 40, 40, 210, row4, 40, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, -5, row5, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, 300, row5, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, 190, row5, 60, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, 30, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, 330, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, 240, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40 , 40, 100, row2, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, 15, row1, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, 300, row1, 40, 40);
+	    ctx.drawImage(sprite, 75, 260, 40, 40, 220, row1, 40, 40); 
 	    //set speed: 
 	    //setInterval(move_cars, speedCars); 
 	}
