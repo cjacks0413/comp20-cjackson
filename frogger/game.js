@@ -3,8 +3,10 @@ sprite = new Image();
 sprite.src = "assets/frogger_sprites.png"; 
 
 //global variables
-frog_x = 0;
-frog_y = 0; 
+frogX = 200;
+frogY = 475; 
+oldFrogX = 0;
+oldFrogY = 0; 
 numLives = 3; 
 level = 1; 
 score = 0; 
@@ -24,7 +26,7 @@ boardLogX = 250;
 boardLogY = 40;
 posLogX = 40; 
 posLogY = 160;
-pos3 = 80; 
+pos1 = 40; 
 
 //allSprites = new Array();
 
@@ -37,33 +39,78 @@ function start_game()
 	 else {
 	 	alert ('Your browser does not support canvas.');
 	 }
-	 setInterval(draw_game, 30); 	 
+	 setInterval(draw_game, 30);
+	 window.addEventListener('keydown', whatKey, true);  	 
 }
-//re-call constantly whenever user input/moves change
+
+function whatKey(event)
+{
+	oldFrogX = frogX;
+	oldFrogY = frogY; 
+	
+//	switch (event.keyCode) {
+		//Left arrow
+	if(event.keyCode == 37) {
+		frogX = frogX - 15;
+		if(frogX < 0) {
+			frogX = 0; 
+		}
+	}
+		//Right
+	else if(event.keyCode == 39) {
+		frogX = frogX + 15;
+		if(frogX > 375) {
+			frogX = 375;
+		}
+	}
+		//Down
+	else if (event.keyCode == 40) {
+		frogY = frogY + 15;
+		if(frogY > 475) {
+			frogY = 475;
+		}
+	}
+		//Up 
+	else if (event.keyCode == 38) { 
+		frogY = frogY - 15;
+		if(frogY < 65) {
+			frogY = 65;
+		}
+	}
+//	}
+}
+
 function draw_game()
 {
 //    canvas = document.getElementById('game');
-//	if (canvas.getContext) {
-//		ctx = canvas.getContext('2d');
-//		ctx.clearRect(0,0,canvasX, canvasY); 
+	if (canvas.getContext) {
+ 		ctx = canvas.getContext('2d');
+		ctx.clearRect(0,0,canvasX, canvasY); 
 		render_background(); 
 		//determine user move, adjust coordinates accordingly--starting position:
-			frog_x = 200;
-			frog_y = 475; 
-//		pos1 += 3; 
+	//		frog_x = 200;
+	//		frog_y = 475; 
+//		setPositions(); 
+		pos1 += 3; 
 //		pos2 += 3;
 //		pos3 += 3; 
-		render_frog_position(frog_x, frog_y); 
-		render_logs(); //(pos1, pos2, pos3) etc.  
-		render_cars(); 
+		render_frog_position(frogX, frogY); 
+		render_logs(pos1); //(pos1, pos2, pos3) etc.  
+		render_cars(pos1); 
 		render_footer(); 
 	//render lilypads
-//	}
-//	else {
-//		alert('Your browser does not support canvas.');
-//	}
+	}
+	else {
+		alert('Your browser does not support canvas.');
+	}
 	
+
 }
+/*
+function setPositions()
+{
+	log
+}*/ 
 /*
 function start_animation()
 {
@@ -92,29 +139,33 @@ function render_background()
 
 function render_frog_position(frog_x, frog_y) 
 {
-/*	if((pos1 > canvasX) || (pos2 > canvasX) || (pos3 > canvasX)) {
+	if((pos1 > canvasX)){ // || (pos2 > canvasX) || (pos3 > canvasX)) 
 		 pos1 = startLeft;
-		 pos2 = startLeft;
-		 pos3 = startLeft;
-		 } */ 
-	ctx.drawImage(sprite, 0, 360, 45, 30, frog_x, frog_y, 30, 40); 
+//		 pos2 = startLeft;
+//		 pos3 = startLeft;
+		 } 
+	ctx.drawImage(sprite, 0, 360, 45, 30, frogX, frogY, 30, 40); 
 
 }
 
 function render_logs() 
 {
+	row1 = 90; 
+	row2 = 125;
 	row3 = 165;
-	ctx.drawImage(sprite, 0, 155, 300, 40, 40, 125, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 155, 300, 40, 180, 90, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 155, 300, 40, 150, 165, boardLogX, boardLogY); 	
+	row4 = 205;
+	row5 = 240;
+	ctx.drawImage(sprite, 0, 155, 300, 40, pos1, row2, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, 180, row1, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, 150, row3, boardLogX, boardLogY); 	
 	ctx.drawImage(sprite, 0, 155, 300, 40, -100, row3, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 190, 250, 38, 40, 205, boardLogX, boardLogY);
-	ctx.drawImage(sprite, 0, 187, 250, 38, 200, 205, 250, 35); 
-	ctx.drawImage(sprite, 0, 187, 250, 38, 150, 240, 240, 40); 
+	ctx.drawImage(sprite, 0, 190, 250, 36, pos1, row4, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 187, 250, 38, 200, row4, 250, 35); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, 150, row5, 240, 40); 
 }
 
 
-function render_cars()
+function render_cars(pos1)
 {
 	//similar to render_logs
 	row1 = 445
@@ -124,15 +175,15 @@ function render_cars()
 	row5 = 305;
 	if (level == 1) {
 		//more cars in future
-		ctx.drawImage(sprite, 40, 260, 40, 40, 30, row4, 40, 40); 
+		ctx.drawImage(sprite, 40, 260, 40, 40, pos1, row4, 40, 40); 
 	    ctx.drawImage(sprite, 40, 260, 40, 40, 210, row4, 40, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, -5, row5, 60, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, 300, row5, 60, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, 190, row5, 60, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, 30, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, pos1, row3, 40, 40); 
 	    ctx.drawImage(sprite, 0, 260, 40, 40, 330, row3, 40, 40); 
 	    ctx.drawImage(sprite, 0, 260, 40, 40, 240, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 290, 40 , 40, 100, row2, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40 , 40, 200, row2, 40, 40); 
 	    ctx.drawImage(sprite, 75, 260, 40, 40, 15, row1, 40, 40); 
 	    ctx.drawImage(sprite, 75, 260, 40, 40, 300, row1, 40, 40);
 	    ctx.drawImage(sprite, 75, 260, 40, 40, 220, row1, 40, 40); 
