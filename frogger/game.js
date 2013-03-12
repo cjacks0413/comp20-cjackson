@@ -3,8 +3,6 @@ sprite = new Image();
 sprite.src = "assets/frogger_sprites.png"; 
 
 //global variables
-frogX = 200;
-frogY = 475; 
 oldFrogX = 0;
 oldFrogY = 0; 
 numLives = 3; 
@@ -15,9 +13,10 @@ numSafeFrogs = 0;
 time = 120; 
 speedLogs = 60; 
 speedCars = 500; 
-startLeft = -160
+startLeft = -500;
+startLeft1 = -500; 
 //interval = 60; 
-canvasX = 399;
+canvasX = 500;
 canvasY = 565; 
 //log variables
 medLogX = 155;
@@ -26,9 +25,151 @@ boardLogX = 250;
 boardLogY = 40;
 posLogX = 40; 
 posLogY = 160;
-pos1 = 40; 
+var l1 = 40; 
+var l2 = 0;
+var l3 = 0; 
+var l4 = 0; 
+var l5 = 0; 
+var l6 = 0; 
+var posLog1 = 0; 
+var posLog2 = 0; 
+var pCarRight = 0;
+var pCarLeft = 0; 
+allSprites = new Array();
+allCarsLeft = new Array();
+allCarsRight = new Array();
 
-//allSprites = new Array();
+frog = new Object();
+frog.x = 200; frog.y = 475; frog.width = 30; frog.height = 40;
+allSprites.push(frog); 
+log1 = new Object();
+log1.x = 0; log1.y = 125; log1.width = 300; log1.height = 40;
+allSprites.push(log1);
+log2 = new Object();
+log2.x = 180; log2.y = 90; log2.width = 300; log2.height = 40;
+allSprites.push(log2);
+log3 = new Object();
+log3.x = 150; log3.y = 165; log3.width = 300; log3.height = 40;
+allSprites.push(log3); 
+log4 = new Object();
+log4.x = -100; log4.y = 165; log4.width = 300; log4.height = 40;
+allSprites.push(log4);
+log5 = new Object();
+log5.x = 400; log5.y = 205; log5.width = 250; log5.height = 36;
+allSprites.push(log5);
+log6 = new Object();
+log6.x = 200; log6.x = 205; log6.width = 350; log6.height = 38;
+allSprites.push(log6);
+log7 = new Object();
+log7.x = 150; log7.y = 240; log7.width = 250; log7.height = 38;
+allSprites.push(log7);
+log8 = new Object();
+log8.x = 300; log8.y = 125; log8.width = 250; log8.height = 36;
+allSprites.push(log8);
+log9 = new Object();
+log9.x = 500; log9.y = 165; log9.width = 250; log9.height = 36;
+allSprites.push(log9);
+log10 = new Object();
+log10.x = 350; log10.y = 240; log10.width = 300; log10.height = 40;
+allSprites.push(log10); 
+
+car1 = new Object(); 
+car1.x = 30; car1.y = 340; car1.width = 40; car1.height = 40;
+allSprites.push(car1);
+allCarsRight.push(car1); 
+
+car2 = new Object();
+car2.x = 210; car2.y = 340; car2.width = 40; car2.height = 40;
+allSprites.push(car2);
+allCarsRight.push(car2);
+
+car3 = new Object();
+car3.x = 200; car3.y = 410; car3.width = 40; car3.height = 40;
+allSprites.push(car3);
+allCarsRight.push(car3);
+
+car4 = new Object();
+car4.x = 30; car4.y = 410; car4.width = 40; car4.height = 40;
+allSprites.push(car4);
+allCarsRight.push(car4);
+
+car5 = new Object();
+car5.x = -5; car5.y = 305; car5.width = 70; car5.height = 40;
+allSprites.push(car5);
+allCarsLeft.push(car5); 
+
+car6 = new Object();
+car6.x = 300; car6.y = 305; car6.width = 70; car6.height = 40;
+allSprites.push(car6);
+allCarsLeft.push(car6);
+
+car7 = new Object();
+car7.x = 190; car7.y = 305; car7.width = 70; car7.height = 40;
+allSprites.push(car7);
+allCarsLeft.push(car7);
+
+car8 = new Object();
+car8.x = 40; car8.y = 375; car8.width = 40; car8.height = 40;
+allSprites.push(car8);
+allCarsLeft.push(car8);
+
+car9 = new Object();
+car9.x = 330; car9.y = 375; car9.width = 40; car9.height = 40;
+allSprites.push(car9);
+allCarsLeft.push(car9);
+
+car10 = new Object();
+car10.x = 240; car10.y = 375; car10.width = 40; car10.height = 40;
+allSprites.push(car10);
+allCarsLeft.push(car10); 
+
+car11 = new Object();
+car11.x = 15; car11.y = 445; car11.width = 40; car11.height = 40;
+allSprites.push(car11);
+allCarsLeft.push(car11);
+
+car12 = new Object();
+car12.x = 300; car12.y = 445; car12.width = 40; car12.height = 40;
+allSprites.push(car12);
+allCarsLeft.push(car12);
+
+car13 = new Object();
+car13.x = 220; car13.y = 445; car13.width = 40; car12.height = 30;
+allSprites.push(car13);
+allCarsLeft.push(car13); 
+
+
+/*
+	row1 = 445
+	row2 = 410
+	row3 = 375
+	row4 = 340
+	row5 = 305;
+	if (level == 1) {
+		//more cars in future
+	    ctx.drawImage(sprite, 75, 260, 40, 40, 220 + l1, row1, 40, 40); 
+*/
+
+//get Image Data
+	//if frog is in particular position, and they hit the up arrow,
+	//before you move the frog, you use getImageData to see if there
+	//are any boundaries there. 
+	//put in coordinates (width/height), makes a snapshot of whatever's there
+	//and stores it in an object
+	//every time the user wants to make a move, you take a snapshot
+	//of the rectangle 
+	
+	//find the current position of the frogger,
+	//before the frog moves, draw a square that's left/right/below/above
+	//use that information to determine whether it's possible for them to make
+	//that move 
+	
+	
+
+//associative array for every item on the board 
+//array[0] is the frogger 
+//the rest are all the positions, and you loop through each one to 
+//figure out if anything collided.
 
 function start_game()
 {
@@ -39,42 +180,45 @@ function start_game()
 	 else {
 	 	alert ('Your browser does not support canvas.');
 	 }
+//	 ctx.fillRect(, frog.y, , ); 
 	 setInterval(draw_game, 30);
 	 window.addEventListener('keydown', whatKey, true);  	 
 }
 
 function whatKey(event)
 {
-	oldFrogX = frogX;
-	oldFrogY = frogY; 
-	
+	oldFrogX = frog.x;
+	oldFrogY = frog.x; 
+
+//in each if statement, check for valid move using getImageData
+//and it returns a boolean that lets you know 
 //	switch (event.keyCode) {
 		//Left arrow
 	if(event.keyCode == 37) {
-		frogX = frogX - 15;
-		if(frogX < 0) {
-			frogX = 0; 
+		frog.x = frog.x - 21;
+		if(frog.x < 0) {
+			frog.x = 0; 
 		}
 	}
 		//Right
 	else if(event.keyCode == 39) {
-		frogX = frogX + 15;
-		if(frogX > 375) {
-			frogX = 375;
+		frog.x = frog.x + 21;
+		if(frog.x > 375) {
+			frog.x = 375;
 		}
 	}
 		//Down
 	else if (event.keyCode == 40) {
-		frogY = frogY + 15;
-		if(frogY > 475) {
-			frogY = 475;
+		frog.y = frog.y + 21;
+		if(frog.y > 475) {
+			frog.y = 475;
 		}
 	}
 		//Up 
 	else if (event.keyCode == 38) { 
-		frogY = frogY - 15;
-		if(frogY < 65) {
-			frogY = 65;
+		frog.y = frog.y - 21;
+		if(frog.y < 65) {
+			frog.y = 65;
 		}
 	}
 //	}
@@ -90,13 +234,13 @@ function draw_game()
 		//determine user move, adjust coordinates accordingly--starting position:
 	//		frog_x = 200;
 	//		frog_y = 475; 
-//		setPositions(); 
-		pos1 += 3; 
+		setPositions(); 
+//		pos1 += 3; 
 //		pos2 += 3;
 //		pos3 += 3; 
-		render_frog_position(frogX, frogY); 
-		render_logs(pos1); //(pos1, pos2, pos3) etc.  
-		render_cars(pos1); 
+		render_logs(posLog1, posLog2); //(pos1, pos2, pos3) etc.  
+		render_cars(); 
+		render_frog_position(frog.x, frog.y); 
 		render_footer(); 
 	//render lilypads
 	}
@@ -106,16 +250,18 @@ function draw_game()
 	
 
 }
-/*
+
 function setPositions()
 {
-	log
-}*/ 
-/*
+	setLogs();
+	setCars();
+}
+
+
 function start_animation()
 {
 	setInterval(render_logs, speedLogs); 
-}*/ 
+}
 function add_colors()
 {
 	canColor = document.getElementById('game');
@@ -139,12 +285,8 @@ function render_background()
 
 function render_frog_position(frog_x, frog_y) 
 {
-	if((pos1 > canvasX)){ // || (pos2 > canvasX) || (pos3 > canvasX)) 
-		 pos1 = startLeft;
-//		 pos2 = startLeft;
-//		 pos3 = startLeft;
-		 } 
-	ctx.drawImage(sprite, 0, 360, 45, 30, frogX, frogY, 30, 40); 
+
+	ctx.drawImage(sprite, 0, 360, 45, 30, frog.x, frog.y, 30, 40); 
 
 }
 
@@ -155,13 +297,31 @@ function render_logs()
 	row3 = 165;
 	row4 = 205;
 	row5 = 240;
-	ctx.drawImage(sprite, 0, 155, 300, 40, pos1, row2, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 155, 300, 40, 180, row1, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 155, 300, 40, 150, row3, boardLogX, boardLogY); 	
-	ctx.drawImage(sprite, 0, 155, 300, 40, -100, row3, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 190, 250, 36, pos1, row4, boardLogX, boardLogY);
-	ctx.drawImage(sprite, 0, 187, 250, 38, 200, row4, 250, 35); 
-	ctx.drawImage(sprite, 0, 187, 250, 38, 150, row5, 240, 40); 
+	
+//rectangles:
+//	log
+//showing at beginning 
+//find out when overlapping happens, track in algorithm 
+
+	ctx.drawImage(sprite, 0, 155, 300, 40, log1.x, row2, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, log2.x, row1, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, log3.x, row3, boardLogX, boardLogY); 		
+	ctx.drawImage(sprite, 0, 155, 300, 40, log4.x, row3, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 190, 250, 36, log5.x, row4, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 187, 250, 38, log6.x, row4, 250, 35); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, log7.x, row5, 240, 40); 
+	ctx.drawImage(sprite, 0, 190, 250, 36, log8.x, row2, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 190, 250, 36, log9.x, row3, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 155, 300, 40, log10.x, row5, boardLogX, boardLogY); 
+//hidden at beginning
+/*	ctx.drawImage(sprite, 0, 155, 300, 40, -400 + posLog2, row3, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 155, 300, 40, -150 + posLog2, row2, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 190, 250, 36, -300 + posLog2, row1, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 190, 250, 36, -150 + posLog2, row5, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 190, 250, 36, -400 + posLog2, row5, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, -139 + posLog2, row4, boardLogX, boardLogY);
+	ctx.drawImage(sprite, 0, 187, 250, 38, -500 + posLog2, row1, boardLogX, boardLogY); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, -300 + posLog2, row4, boardLogX, boardLogY); */ 
 }
 
 
@@ -175,20 +335,21 @@ function render_cars(pos1)
 	row5 = 305;
 	if (level == 1) {
 		//more cars in future
-		ctx.drawImage(sprite, 40, 260, 40, 40, pos1, row4, 40, 40); 
-	    ctx.drawImage(sprite, 40, 260, 40, 40, 210, row4, 40, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, -5, row5, 60, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, 300, row5, 60, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, 190, row5, 60, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, pos1, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, 330, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, 240, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 290, 40 , 40, 200, row2, 40, 40); 
-	    ctx.drawImage(sprite, 75, 260, 40, 40, 15, row1, 40, 40); 
-	    ctx.drawImage(sprite, 75, 260, 40, 40, 300, row1, 40, 40);
-	    ctx.drawImage(sprite, 75, 260, 40, 40, 220, row1, 40, 40); 
-	    //set speed: 
-	    //setInterval(move_cars, speedCars); 
+		ctx.drawImage(sprite, 40, 260, 40, 40, car1.x, row4, 40, 40); 
+	    ctx.drawImage(sprite, 40, 260, 40, 40, car2.x, row4, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40, 40, car3.x, row2, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40 , 40, car4.x, row2, 40, 40);
+	    
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car5.x, row5, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car6.x, row5, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car7.x, row5, 60, 40);     
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car8.x, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car9.x, row3, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car10.x, row3, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, row1, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, row1, 40, 40);
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, row1, 40, 40); 
+
 	}
 }
 
@@ -223,7 +384,75 @@ function render_footer()
 
 }
 
+function setLogs()
+{
 
+	for(i=1;i<allSprites.length;i++) {
+		allSprites[i].x += 3;
+		if(allSprites[i].x > canvasX) {
+			allSprites[i].x = startLeft;
+		}
+	}
+//	console.log(pos);
+/*	p1 += 3;
+	p2 += 3;
+	p3 += 3;
+	p4 += 3;
+	p5 += 3;
+	p6 += 3;
+	 
+	l1 += 3;
+	l2 += 3;
+	l3 += 3;
+	l4 += 3; 
+	l5 += 3;
+	l6 += 3;
+	if(l1 > canvasX) 
+	{
+		l1 = 0; //+ 300;
+	}	
+	if (l2 > canvasX)// - 200) 
+	{
+		l2 = startLeft;// + 190;
+	}
+	if (l3 > canvasX )//- 100) 
+	{
+		l3 = startLeft;// + 200;
+	}
+	if (l4 > canvasX) 
+	{
+		l4 = startLeft;// + 375;
+	}
+	if (l5 > canvasX)// - 200) 
+	{
+		l5 = startLeft;// + 200;
+	}
+	if (l6 > canvasX )//- 300) 
+	{
+		l6 = startLeft;// + 100;
+	}
+	posLog2 +=3;
+	if(posLog2 > canvasX)// +350) 
+	{
+		posLog2 = startLeft;
+	}	*/ 
+} 
+
+function setCars()
+{
+	for (i=0;i<allCarsRight.length;i++) {
+		allCarsRight[i].x += 3;
+		if(allCarsRight[i].x > canvasX) {
+			allCarsRight[i].x = startLeft;
+		}
+	}
+	for (i=0;i<allCarsLeft.length;i++) {
+		allCarsLeft[i].x += 3; 
+		if(allCarsLeft[i].x > canvasX) {
+			allCarsLeft[i].x = startLeft;
+		}
+	}
+}
 //determine when game board should be re-initialized
 function is_new_round(time, numSafeFrogs)
 {
