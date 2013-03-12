@@ -8,7 +8,6 @@
 <script type="text/javascript">
 	var str = "";
 	request = new XMLHttpRequest(); 
-
 	function parse() {
 	request.open("GET", "http://messagehub.herokuapp.com/lab8.json", true);
 	request.send(null);
@@ -23,7 +22,7 @@
 		catch(error) {
 			alert(request.status);
 		}
-
+		
 		jobs = JSON.parse(str); 
 		row = new Array();
 		cell = new Array();
