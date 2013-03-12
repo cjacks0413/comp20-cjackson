@@ -42,9 +42,10 @@ var cHeight = 25;
 allSprites = new Array();
 allCarsLeft = new Array();
 allCarsRight = new Array();
+lilyPads = new Array(); 
 
 frog = new Object();
-frog.x = 200; frog.y = 475; frog.width = 30; frog.height = 40;
+frog.x = 200; frog.y = 475; frog.width = 30; frog.height = 30;
 allSprites.push(frog); 
 
 log1 = new Object();
@@ -152,18 +153,25 @@ car13.x = 220; car13.y = 445; car13.width = cWidth; car12.height = 30;
 allSprites.push(car13);
 allCarsLeft.push(car13); 
 
+lp1 = new Object();
+lp1.x = 15; lp1.y = 75; lp1.width = 30; lp1.height = 30;
+lilyPads.push(lp1);
 
-/*
-	row1 = 445
-	row2 = 410
-	row3 = 375
-	row4 = 340
-	row5 = 305;
-	
-	if (level == 1) {
-		//more cars in future
-	    ctx.drawImage(sprite, 75, 260, 40, 40, 220 + l1, row1, 40, 40); 
-*/
+lp2 = new Object();
+lp2.x = 100; lp2.y = 75; lp2.width = 30; lp2.height = 30;
+lilyPads.push(lp2);
+
+lp3 = new Object(); 
+lp3.x = 185; lp3.y = 75; lp3.width = 30; lp3.height = 30;
+lilyPads.push(lp3); 
+
+lp4 = new Object();
+lp4.x = 270; lp4.y = 75; lp4.width = 30; lp4.height = 30;
+lilyPads.push(lp4);
+
+lp5 = new Object();
+lp5.x = 355; lp5.y = 75; lp5.width = 30; lp5.height = 30;
+lilyPads.push(lp5);
 
 	
 
@@ -277,6 +285,11 @@ function render_background()
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 275, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 475, 400, 50);
 
+	ctx.fillRect(15, 75, 30, 30); 
+	ctx.fillRect(100, 75, 30, 30);
+	ctx.fillRect(185, 75, 30, 30);
+	ctx.fillRect(270, 75, 30, 30);
+	ctx.fillRect(355, 75, 30, 30);
 }
 
 function render_frog_position(frog_x, frog_y) 
@@ -286,6 +299,17 @@ function render_frog_position(frog_x, frog_y)
 
 }
 
+function checkLilyPads()
+{
+	for(i=0;i<lilyPads.length;i++) {
+ 		if(isColliding(allSprites[0],lilyPads[i])) {
+ 			alert("congrattts");
+ 			ctx.drawImage(sprite, 0, 155, 300, 40, lilyPads[i].x, lilyPads[i].y, 30, 40); 
+ 			allSprites[0].x = startX;
+ 			allSprites[0].y = startY; 
+ 	 	}
+ 	 }
+}
 function render_logs() 
 {
 	row1 = 90; 
@@ -399,6 +423,7 @@ function isColliding(object1, object2)
 		return true; 
 	}
 }
+
 function setLogs()
 {
 
