@@ -3,6 +3,7 @@ sprite = new Image();
 sprite.src = "assets/frogger_sprites.png"; 
 
 //global variables
+var intervalId; 
 oldFrogX = 0;
 oldFrogY = 0; 
 startX = 200;
@@ -38,14 +39,14 @@ var posLog2 = 0;
 var pCarRight = 0;
 var pCarLeft = 0; 
 var cWidth = 30;
-var cHeight = 25; 
+var cHeight = 23; 
 allSprites = new Array();
 allCarsLeft = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
 
 frog = new Object();
-frog.x = 200; frog.y = 475; frog.width = 30; frog.height = 30;
+frog.x = 200; frog.y = 475; frog.width = 30; frog.height = 25;
 allSprites.push(frog); 
 
 log1 = new Object();
@@ -154,23 +155,23 @@ allSprites.push(car13);
 allCarsLeft.push(car13); 
 
 lp1 = new Object();
-lp1.x = 15; lp1.y = 75; lp1.width = 30; lp1.height = 30;
+lp1.x = 15; lp1.y = 75; lp1.width = 30; lp1.height = 30; lp1.isSafe = false; 
 lilyPads.push(lp1);
 
 lp2 = new Object();
-lp2.x = 100; lp2.y = 75; lp2.width = 30; lp2.height = 30;
+lp2.x = 100; lp2.y = 75; lp2.width = 30; lp2.height = 30; lp2.isSafe = false;
 lilyPads.push(lp2);
 
 lp3 = new Object(); 
-lp3.x = 185; lp3.y = 75; lp3.width = 30; lp3.height = 30;
+lp3.x = 185; lp3.y = 75; lp3.width = 30; lp3.height = 30; lp3.isSafe = false; 
 lilyPads.push(lp3); 
 
 lp4 = new Object();
-lp4.x = 270; lp4.y = 75; lp4.width = 30; lp4.height = 30;
+lp4.x = 270; lp4.y = 75; lp4.width = 30; lp4.height = 30; lp4.isSafe = false; 
 lilyPads.push(lp4);
 
 lp5 = new Object();
-lp5.x = 355; lp5.y = 75; lp5.width = 30; lp5.height = 30;
+lp5.x = 355; lp5.y = 75; lp5.width = 30; lp5.height = 30; lp5.isSafe = false;
 lilyPads.push(lp5);
 
 	
@@ -189,7 +190,7 @@ function start_game()
 	 else {
 	 	alert ('Your browser does not support canvas.');
 	 }
-	 setInterval(draw_game, 30);
+	 intervalId = window.setInterval(draw_game, 30);
 	 window.addEventListener('keydown', whatKey, true);  	 
 }
 
@@ -198,33 +199,30 @@ function whatKey(event)
 	oldFrogX = frog.x;
 	oldFrogY = frog.x; 
 
-//in each if statement, check for valid move using getImageData
-//and it returns a boolean that lets you know 
-//	switch (event.keyCode) {
 		//Left arrow
 	if(event.keyCode == 37) {
-		frog.x = frog.x - 21;
+		frog.x = frog.x - 25;
 		if(frog.x < 0) {
 			frog.x = 0; 
 		}
 	}
 		//Right
 	else if(event.keyCode == 39) {
-		frog.x = frog.x + 21;
+		frog.x = frog.x + 25;
 		if(frog.x > 375) {
 			frog.x = 375;
 		}
 	}
 		//Down
 	else if (event.keyCode == 40) {
-		frog.y = frog.y + 21;
+		frog.y = frog.y + 25;
 		if(frog.y > 475) {
 			frog.y = 475;
 		}
 	}
 		//Up 
 	else if (event.keyCode == 38) { 
-		frog.y = frog.y - 21;
+		frog.y = frog.y - 25;
 		if(frog.y < 65) {
 			frog.y = 65;
 		}
@@ -242,6 +240,7 @@ function draw_game()
 		render_background(); 
 		setPositions();
 		checkLilyPads(); 
+		renderLilyPads(); 
 		render_logs(); 
 		render_cars(); 
 		render_frog_position(frog.x, frog.y); 
@@ -280,33 +279,42 @@ function render_background()
 {
 	add_colors(); 
 	//frogger title, lilypads, and roadsides 
-	ctx.drawImage(sprite, 0, 0, 350, 50, 0, 0, 350, 50); 
+	ctx.drawImage(sprite, 0, 0, 350, 50, 0, 0, 350, 50);  
 	ctx.drawImage(sprite, 0, 50, 395, 50, 0, 50, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 275, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 475, 400, 50);
 
-	ctx.fillRect(15, 75, 30, 30); 
-	ctx.fillRect(100, 75, 30, 30);
-	ctx.fillRect(185, 75, 30, 30);
-	ctx.fillRect(270, 75, 30, 30);
-	ctx.fillRect(355, 75, 30, 30);
+	ctx.fillRect(15, 75, 30, 25); 
+	ctx.fillRect(100, 75, 30, 25);
+	ctx.fillRect(185, 75, 30, 25);
+	ctx.fillRect(270, 75, 30, 25);
+	ctx.fillRect(355, 75, 30, 25);
 }
 
 function render_frog_position(frog_x, frog_y) 
 {
 
-	ctx.drawImage(sprite, 0, 360, 45, 30, frog.x, frog.y, 30, 40); 
+	ctx.drawImage(sprite, 0, 360, 45, 30, frog.x, frog.y, 30, 30); 
 
 }
 
+function renderLilyPads()
+{
+	for(i=0;i<lilyPads.length;i++) {
+		if(lilyPads[i].isSafe == true) {
+			ctx.drawImage(sprite, 0, 360, 45, 40, lilyPads[i].x, lilyPads[i].y, 30, 30); 
+		}
+	}
+	
+}
 function checkLilyPads()
 {
 	for(i=0;i<lilyPads.length;i++) {
  		if(isColliding(allSprites[0],lilyPads[i])) {
- 			alert("congrattts");
- 			ctx.drawImage(sprite, 0, 155, 300, 40, lilyPads[i].x, lilyPads[i].y, 30, 40); 
- 			allSprites[0].x = startX;
- 			allSprites[0].y = startY; 
+ 			lilyPads[i].isSafe = true; 
+ 			frog.x = startX;
+ 			frog.y = startY; 
+ 			console.log(numLives); 
  	 	}
  	 }
 }
@@ -410,8 +418,7 @@ function checkCollisions()
 		if(isColliding(allSprites[0], allSprites[i])) {
 			allSprites[0].x = startX;
 			allSprites[0].y = startY;
-			console.log("it collided"); 
-	//		numLives += -1; 
+			numLives = numLives -1;  
 		}
 	}
 }
@@ -481,13 +488,13 @@ function setLogs()
 function setCars()
 {
 	for (i=0;i<allCarsRight.length;i++) {
-		allCarsRight[i].x += 3;
+		allCarsRight[i].x += 1;
 		if(allCarsRight[i].x > canvasX) {
 			allCarsRight[i].x = startLeft;
 		}
 	}
 	for (i=0;i<allCarsLeft.length;i++) {
-		allCarsLeft[i].x += 3; 
+		allCarsLeft[i].x += 1;
 		if(allCarsLeft[i].x > canvasX) {
 			allCarsLeft[i].x = startLeft;
 		}
