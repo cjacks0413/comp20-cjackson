@@ -222,6 +222,7 @@ function whatKey(event)
 	}
 		//Up 
 	else if (event.keyCode == 38) { 
+		score += 10; 
 		frog.y = frog.y - 25;
 		if(frog.y < 65) {
 			frog.y = 65;
@@ -239,12 +240,15 @@ function draw_game()
 		checkCollisions(); 
 		render_background(); 
 		setPositions();
-		checkLilyPads(); 
 		renderLilyPads(); 
 		render_logs(); 
 		render_cars(); 
 		render_frog_position(frog.x, frog.y); 
-		render_footer(); 
+		render_footer();
+		console.log(numSafeFrogs); 
+//	if(isNewRound) {
+//			window.clearInterval(intervalId);
+//		} 
 	}
 	else {
 		alert('Your browser does not support canvas.');
@@ -300,6 +304,7 @@ function render_frog_position(frog_x, frog_y)
 
 function renderLilyPads()
 {
+	checkLilyPads(); 
 	for(i=0;i<lilyPads.length;i++) {
 		if(lilyPads[i].isSafe == true) {
 			ctx.drawImage(sprite, 0, 360, 45, 40, lilyPads[i].x, lilyPads[i].y, 30, 30); 
@@ -307,16 +312,22 @@ function renderLilyPads()
 	}
 	
 }
+
 function checkLilyPads()
 {
 	for(i=0;i<lilyPads.length;i++) {
  		if(isColliding(allSprites[0],lilyPads[i])) {
  			lilyPads[i].isSafe = true; 
+ 			score += 50; 
  			frog.x = startX;
  			frog.y = startY; 
- 			console.log(numLives); 
+ 			numSafeFrogs += 1;
+ 			if(numSafeFrogs == 5) {
+ 				score += 1000;
+ 				window.clearInterval(intervalId); 
+ 			} 
  	 	}
- 	 }
+ 	 }	
 }
 function render_logs() 
 {
@@ -501,12 +512,14 @@ function setCars()
 	}
 }
 //determine when game board should be re-initialized
-function is_new_round(time, numSafeFrogs)
+function isNewRound()
 {
-	if (time == 0) {
+/*	if (time == 0) {
 		return true;
-	}
+	}*/ 
+	console.log(numSafeFrogs); 
 	if (numSafeFrogs == 5) {
+		score += 1000; 
 		return true;
 	}	
 	else {
