@@ -429,7 +429,11 @@ function checkCollisions()
 		if(isColliding(allSprites[0], allSprites[i])) {
 			allSprites[0].x = startX;
 			allSprites[0].y = startY;
-			numLives = numLives -1;  
+			numLives = numLives -1;
+			if(numLives == 0) {
+				window.clearInterval(intervalId); 
+			}
+  
 		}
 	}
 }
