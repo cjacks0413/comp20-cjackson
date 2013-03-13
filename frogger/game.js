@@ -461,18 +461,18 @@ function changeTimer()
 }
 function checkCollisions()
 {
-	for(i=11;i<allSprites.length;i++) 
+	for(i=0;i<allCars.length;i++) 
 	{
-		if(isColliding(allSprites[0], allSprites[i])) 
+		if(isColliding(frog, allCars[i])) 
 		{
-			allSprites[0].x = startX;
-			allSprites[0].y = startY;
+			frog.x = startX;
+			frog.y = startY;
 			numLives = numLives -1;
 			if(numLives == 0){
 				window.clearInterval(intervalId); 
 			}
 		}
-	}
+	} 
 	checkLogs();
 }
 
@@ -481,8 +481,28 @@ function checkLogs()
 	for (i=0;i<allLogs.length;i++)
 	{
 		if(isColliding(frog, allLogs[i])) {
-			frog.x = allLogs[i].x;
-			frog.y = allLogs[i].y;
+			if(allLogs[i].d == "right") {
+				if(frog.x < 375) {
+					frog.x = allLogs[i].x;
+					frog.y = allLogs[i].y;
+				}
+				else {
+					frog.x = startX;
+					frog.y = startY;
+					numLives = numLives -1;
+				}
+			}
+			if(allLogs[i].d == "left") {
+				if(frog.x > 0) {
+					frog.x = allLogs[i].x;
+					frog.y = allLogs[i].y;
+				}
+				else {
+					frog.x = startX;
+					frog.y = startY;
+					numLives = numLives -1; 
+				}
+			}
 		}
 	}
 }
