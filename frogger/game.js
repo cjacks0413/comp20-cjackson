@@ -43,7 +43,7 @@ var pCarLeft = 0;
 var cWidth = 30;
 var lheight = 20; 
 var cHeight = 23; 
-var time = 1000; 
+var time = 30; 
 allSprites = new Array();
 allCarsLeft = new Array();
 allCarsRight = new Array();
@@ -192,8 +192,8 @@ function start_game()
 	 else {
 	 	alert ('Your browser does not support canvas.');
 	 }
+	 time = new Date(); 
 	 intervalId = window.setInterval(draw_game, 30);
-//	 setTimeout(timer, time); 
 	 window.addEventListener('keydown', whatKey, true);  	 
 }
 
@@ -201,7 +201,6 @@ function whatKey(event)
 {
 	oldFrogX = frog.x;
 	oldFrogY = frog.x; 
-
 		//Left arrow
 	if(event.keyCode == 37) {
 		frog.x = frog.x - 25;
@@ -261,7 +260,6 @@ function setPositions()
 	setLogs();
 	setCars();
 }
-
 
 
 function add_colors()
@@ -413,15 +411,15 @@ function render_footer()
 	}
 	changeTimer(); 
 	ctx.fillRect(timerX, 530, timerWidth, 25); 
-	if(timerX == 400) {
-		console.log("time out");
+	if(timerX == 260.5) {
+		elapsed = (new Date() - time)/ 1000;
+		console.log(elapsed);
 	}
 }
 
 function changeTimer()
 {
-	timerX += .1;
-	timerWidth += .1;
+	timerX += .07;
 	
 }
 function checkCollisions()
@@ -490,9 +488,7 @@ function setCars()
 //determine when game board should be re-initialized
 function isNewRound()
 {
-/*	if (time == 0) {
-		return true;
-	}*/ 
+
 	if (numSafeFrogs == 5) {
 		score += 1000; 
 		return true;
