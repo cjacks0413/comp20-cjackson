@@ -13,12 +13,13 @@ level = 1;
 score = 0; 
 highScore = 0;
 numSafeFrogs = 0; 
-time = 120; 
 speedLogs = 60; 
 speedCars = 500; 
 startLeft = -500;
 startLeft1 = -500; 
 //interval = 60; 
+timerX = 260;
+timerWidth = 140; 
 canvasX = 500;
 canvasY = 565; 
 //log variables
@@ -42,6 +43,7 @@ var pCarLeft = 0;
 var cWidth = 30;
 var lheight = 20; 
 var cHeight = 23; 
+var time = 1000; 
 allSprites = new Array();
 allCarsLeft = new Array();
 allCarsRight = new Array();
@@ -60,19 +62,19 @@ log2.x = 180; log2.y = 90; log2.width = 125; log2.height = lheight;
 allSprites.push(log2);
 
 log3 = new Object();
-log3.x = 150; log3.y = 165; log3.width = 125; log3.height = lheight;
+log3.x = 240; log3.y = 165; log3.width = 125; log3.height = lheight;
 allSprites.push(log3); 
 
 log4 = new Object();
-log4.x = -100; log4.y = 165; log4.width = 125; log4.height = lheight;
+log4.x = -240; log4.y = 165; log4.width = 125; log4.height = lheight;
 allSprites.push(log4);
 
 log5 = new Object();
-log5.x = 400; log5.y = 205; log5.width = 100; log5.height = lheight;
+log5.x = -500; log5.y = 205; log5.width = 100; log5.height = lheight;
 allSprites.push(log5);
 
 log6 = new Object();
-log6.x = 200; log6.x = 205; log6.width = 125; log6.height = lheight;
+log6.x = 440; log6.x = 205; log6.width = 125; log6.height = lheight;
 allSprites.push(log6);
 
 log7 = new Object();
@@ -84,11 +86,11 @@ log8.x = 300; log8.y = 125; log8.width = 100; log8.height = lheight;
 allSprites.push(log8);
 
 log9 = new Object();
-log9.x = 500; log9.y = 165; log9.width = 100; log9.height = lheight;
+log9.x = 560; log9.y = 165; log9.width = 100; log9.height = lheight;
 allSprites.push(log9);
 
 log10 = new Object();
-log10.x = 350; log10.y = 240; log10.width = 115; log10.height = lheight;
+log10.x = -350; log10.y = 240; log10.width = 115; log10.height = lheight;
 allSprites.push(log10); 
 
 car1 = new Object(); 
@@ -191,6 +193,7 @@ function start_game()
 	 	alert ('Your browser does not support canvas.');
 	 }
 	 intervalId = window.setInterval(draw_game, 30);
+//	 setTimeout(timer, time); 
 	 window.addEventListener('keydown', whatKey, true);  	 
 }
 
@@ -408,9 +411,19 @@ function render_footer()
 	if (numLives == 1) {
 		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
 	}
-
+	changeTimer(); 
+	ctx.fillRect(timerX, 530, timerWidth, 25); 
+	if(timerX == 400) {
+		console.log("time out");
+	}
 }
 
+function changeTimer()
+{
+	timerX += .1;
+	timerWidth += .1;
+	
+}
 function checkCollisions()
 {
 	for(i=11;i<allSprites.length;i++) 
