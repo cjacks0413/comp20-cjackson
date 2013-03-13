@@ -50,6 +50,9 @@ allCars = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
 
+fly = new Object();
+fly.x = 0; fly.y = 0; fly.width = 20; flyheight = 23; 
+
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25;
 allSprites.push(frog); 
@@ -214,9 +217,8 @@ lp5 = new Object();
 lp5.x = 355; lp5.y = 75; lp5.width = 25; lp5.height = 25; lp5.isSafe = false;
 lilyPads.push(lp5);
 
-	
-
-
+counter =  0; 
+var endTime; 
 
 function start_game()
 {
@@ -294,9 +296,15 @@ function setPositions()
 {
 	setLogs();
 	setCars();
+	setFly(); 
 }
 
+function setFly()
+{
+	endTime = Math.floor((Math.random()*600) + 150); 
+	ctx.drawImage(sprite, 130, 230, 40, 40, fly.x, fly.y, 40, 40); 
 
+}
 function add_colors()
 {
 	canColor = document.getElementById('game');
@@ -414,6 +422,7 @@ function render_cars(pos1)
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, row1, 40, 40); 
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, row1, 40, 40);
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, row1, 40, 40); 
+//fly
 }
 
 function render_footer()
@@ -459,6 +468,17 @@ function changeTimer()
 	timerX += .07;
 	
 }
+function checkWater()
+{
+	for(i=0;i<allLogs.length;i++) {
+		if(!isColliding(frog, allLogs[i])) {
+			if(frog.y < 250) {
+				console.log("you indawater");
+			}
+		}
+	}
+	
+}
 function checkCollisions()
 {
 	for(i=0;i<allCars.length;i++) 
@@ -474,8 +494,22 @@ function checkCollisions()
 		}
 	} 
 	checkLogs();
+	checkWater(); 
+	checkFly(); 
 }
+function checkFly()
+{
+	counter++; 
+	if(counter == endTime) {
+		console.log(counter); 
+		var num1 = Math.floor(Math.random()*375);
+		var num2 = Math.floor((Math.random()*475) + 100);
+		fly.x = num1;
+		fly.y = num2;
+		counter = 0; 
+	}
 
+}
 function checkLogs()
 {
 	for (i=0;i<allLogs.length;i++)
@@ -512,6 +546,9 @@ function isColliding(object1, object2)
     object1.y < object2.y + object2.height && object1.y + object1.height > object2.y)
 	{
 		return true; 
+	}
+	else {
+		return false; 
 	}
 }
 
