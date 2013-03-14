@@ -1,6 +1,7 @@
-Profile.html: Runs non-persistent status updates using Javascript
+Profile.html: Updated to include local storage.
+			  Only stores a message, does not print it out. 
 
-Collaboration: Sarah McDaniel, Piazza forum (child/parent nodes)
+Collaboration: Sarah McDaniel, Tara Kola
 
-Time: 3hrs
+Time: 1hr 
 
