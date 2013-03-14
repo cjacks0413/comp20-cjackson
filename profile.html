@@ -14,17 +14,16 @@ i = 0;
 function printInfo(entry)
 {
 	if (document.createTextNode) {
-			
+
 		parentElement = document.getElementById('status');
 		theFirstChild = parentElement.firstChild;
-	
+
 		date = (d.getMonth() + 1) + slash + d.getDate()
 		+ slash + d.getFullYear() + " " + d.getHours() + colon + d.getMinutes() +
 		" " + dash + " ";
-		
-	 	userEntry = date + entry;
-// 		localStorage.setItem("input", userEntry); 
-		console.log(localStorage.getItem("input"));
+
+		userEntry = date + entry;
+		// localStorage.setItem("input", userEntry);
 		para = document.createElement("p");
 		nextEntry = document.createTextNode(localStorage.getItem("input"));
 		para.appendChild(nextEntry);
@@ -32,7 +31,6 @@ function printInfo(entry)
 	}
 
 }
-
 </script>
 </script>
 </head>
