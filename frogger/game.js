@@ -50,12 +50,13 @@ allCars = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
 
-fly = new Object();
-fly.x = 0; fly.y = 0; fly.width = 20; flyheight = 23; 
 
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25;
 allSprites.push(frog); 
+
+fly = new Object();
+fly.x = 0; fly.y = 0; fly.width = 30; flyheight = 25; 
 
 log1 = new Object();
 log1.x = 0; log1.y = 125; log1.width = 150; log1.height = lheight; log1.d = "right"; 
@@ -301,9 +302,8 @@ function setPositions()
 
 function setFly()
 {
-	endTime = Math.floor((Math.random()*600) + 150); 
+	endTime = Math.floor((Math.random()*400) + 150); 
 	ctx.drawImage(sprite, 130, 230, 40, 40, fly.x, fly.y, 40, 40); 
-
 }
 function add_colors()
 {
@@ -352,7 +352,7 @@ function renderLilyPads()
 function checkLilyPads()
 {
 	for(i=0;i<lilyPads.length;i++) {
- 		if(isColliding(allSprites[0],lilyPads[i])) {
+ 		if(isColliding(frog,lilyPads[i])) {
  			lilyPads[i].isSafe = true; 
  			score += 50; 
  			frog.x = startX;
@@ -422,7 +422,6 @@ function render_cars(pos1)
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, row1, 40, 40); 
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, row1, 40, 40);
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, row1, 40, 40); 
-//fly
 }
 
 function render_footer()
@@ -468,6 +467,7 @@ function changeTimer()
 	timerX += .07;
 	
 }
+
 function checkWater()
 {
 	for(i=0;i<allLogs.length;i++) {
@@ -507,6 +507,9 @@ function checkFly()
 		fly.x = num1;
 		fly.y = num2;
 		counter = 0; 
+	if(isColliding(frog, fly)) {
+			console.log("nice!");
+		}
 	}
 
 }
@@ -517,8 +520,8 @@ function checkLogs()
 		if(isColliding(frog, allLogs[i])) {
 			if(allLogs[i].d == "right") {
 				if(frog.x < 375) {
-					frog.x = allLogs[i].x;
-					frog.y = allLogs[i].y;
+					frog.x = frog.x + 3; 
+					frog.y = allLogs[i].y; 
 				}
 				else {
 					frog.x = startX;
@@ -528,8 +531,8 @@ function checkLogs()
 			}
 			if(allLogs[i].d == "left") {
 				if(frog.x > 0) {
-					frog.x = allLogs[i].x;
-					frog.y = allLogs[i].y;
+					frog.x = frog.x - 3;
+					frog.y = allLogs[i].y; 
 				}
 				else {
 					frog.x = startX;
