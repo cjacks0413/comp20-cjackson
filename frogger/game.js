@@ -459,6 +459,11 @@ function render_footer()
 		score =+ extraPoints; 
 		window.clearInterval(intervalId); 
 	}
+	if(isGameOver()){
+		ctx.font = '30pt Arial'; 
+		ctx.fillText("GAME IS OVER :( ", 40, 300);
+		window.clearInterval(intervalId); 	
+	}
 }
 
 function changeTimer()
@@ -484,25 +489,7 @@ function checkWater()
 		frog.y = startY;
 		numLives = numLives -1;
 	}
-/*		if(frog.isOnWater == true) {
-			if(frog.y < water.height) {
-			console.log("whater");
-			}
-		}*/ 
-/*		if(frog.y < 250) {
-			console.log('test');
-		}*/ 
-	
-/*	if(isColliding(frog, water)) {
-		console.log("wattah");
-	}
-	for(i=0;i<allLogs.length;i++) {
-		if(!isColliding(frog, allLogs[i])) {
-			if(frog.y < water.y) {
-				console.log("you indawater");
-			}
-		}
-	} */
+
 	
 }
 function checkCollisions()
@@ -514,9 +501,6 @@ function checkCollisions()
 			frog.x = startX;
 			frog.y = startY;
 			numLives = numLives -1;
-			if(numLives == 0){
-			//	window.clearInterval(intervalId); 
-			}
 		}
 	} 
 	checkLogs();
@@ -548,38 +532,29 @@ function checkLogs()
 				if(frog.x < 375) {
 					frog.x = frog.x + 3; 
 					frog.y = allLogs[i].y; 
-		//			frog.isOnWater = false;
 				}
 				else {
 					frog.x = startX;
 					frog.y = startY;
 					numLives = numLives -1;
-		//			frog.isOnWater = true;
 				}
 			}
 			if(allLogs[i].d == "left") {
 				if(frog.x > 0) {
 					frog.x = frog.x - 3;
 					frog.y = allLogs[i].y; 
-		//			frog.isOnWater = false; 
 				}
 				else {
 					frog.x = startX;
 					frog.y = startY;
 					numLives = numLives -1; 
-		//			frog.isOnWater = true; 
 				}
 			}
 		}
 
 	}
 }
-/*
-function isLogColliding(water, allLogs) 
-{
-	for(i=0;i<allLogs.length;i++) {
-		
-} */ 
+
 
 function isColliding(object1, object2) 
 {
@@ -643,11 +618,12 @@ function isNewRound()
 	}
 }
 
-function is_game_over(lives)
+function isGameOver() 
 {
-	if (lives == 0); {
+	if (numLives == 0) {
 		return true;
 	}
-	
-	return false; 
+	else {
+		return false;
+	}
 }
