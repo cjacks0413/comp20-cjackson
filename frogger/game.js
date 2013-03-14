@@ -192,7 +192,7 @@ allSprites.push(car12);
 allCars.push(car12);
 
 car13 = new Object();
-car13.x = -250; car13.y = 445; car13.width = cWidth; car12.height = 30; car13.d = "left";
+car13.x = -250; car13.y = 445; car13.width = cWidth; car12.height = cHeight; car13.d = "left";
 allSprites.push(car13);
 allCars.push(car13); 
 
@@ -221,6 +221,8 @@ water.x = 0; water.y = 0; water.width = 400; water.height = 250;
 
 counter =  0; 
 var endTime; 
+deadFrogW = 0;
+deadFrogH = 0; 
 
 function start_game()
 {
@@ -457,8 +459,10 @@ function render_footer()
 		score =+ extraPoints; 
 		window.clearInterval(intervalId); 
 	}
+	deadFrogW += 3;
+	deadFrogH += 3; 
 	if(isGameOver()){
-		ctx.drawImage(dead, 0, 0, 30, 30, frog.x, frog.y, 30, 30); 
+		ctx.drawImage(dead, 0, 0, 30, 30, frog.x -3 , frog.y-3, 45, 45); 
 		ctx.font = '30pt Arial'; 
 		ctx.fillText("GAME IS OVER :( ", 40, 300);
 		window.clearInterval(intervalId); 	
