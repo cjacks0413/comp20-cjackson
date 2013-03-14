@@ -55,7 +55,8 @@ allLogs = new Array();
 allCars = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
-
+lpHeight = 16;
+lpY = 75;
 
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
@@ -201,23 +202,23 @@ allSprites.push(car13);
 allCars.push(car13); 
 
 lp1 = new Object();
-lp1.x = 15; lp1.y = 75; lp1.width = 25; lp1.height = 20; lp1.isSafe = false; 
+lp1.x = 15; lp1.y = lpY ; lp1.width = 30; lp1.height = lpHeight; lp1.isSafe = false; 
 lilyPads.push(lp1);
 
 lp2 = new Object();
-lp2.x = 100; lp2.y = 75; lp2.width = 25; lp2.height = 20; lp2.isSafe = false;
+lp2.x = 100; lp2.y = lpY ; lp2.width = 25; lp2.height = lpHeight; lp2.isSafe = false;
 lilyPads.push(lp2);
 
 lp3 = new Object(); 
-lp3.x = 185; lp3.y = 75; lp3.width = 25; lp3.height = 20; lp3.isSafe = false; 
+lp3.x = 185; lp3.y = lpY ; lp3.width = 25; lp3.height = lpHeight; lp3.isSafe = false; 
 lilyPads.push(lp3); 
 
 lp4 = new Object();
-lp4.x = 270; lp4.y = 75; lp4.width = 25; lp4.height = 20; lp4.isSafe = false; 
+lp4.x = 270; lp4.y = lpY ; lp4.width = 25; lp4.height = lpHeight; lp4.isSafe = false; 
 lilyPads.push(lp4);
 
 lp5 = new Object();
-lp5.x = 355; lp5.y = 75; lp5.width = 25; lp5.height = 20; lp5.isSafe = false;
+lp5.x = 355; lp5.y = lpY ; lp5.width = 25; lp5.height = lpHeight; lp5.isSafe = false;
 lilyPads.push(lp5);
 
 water = new Object();
@@ -367,11 +368,9 @@ function checkLilyPads()
  			frog.x = startX;
  			frog.y = startY; 
  			numSafeFrogs += 1;
- 			if(numSafeFrogs == 1) {
+ 			if(numSafeFrogs == 5) {
  				score += 1000;
- 				console.log(Math.floor(endGameTime - elapsed));
  				extraPoints = Math.floor((endGameTime - Math.floor(elapsed)) * 10) 
- 				console.log(extraPoints); 
 				score =+ extraPoints; 
  				window.clearInterval(intervalId); 
  			} 
