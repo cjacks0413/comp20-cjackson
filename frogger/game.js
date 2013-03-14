@@ -55,7 +55,7 @@ allLogs = new Array();
 allCars = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
-lpHeight = 16;
+lpHeight = 15;
 lpY = 75;
 
 frog = new Object();
@@ -341,12 +341,11 @@ function render_background()
 	ctx.drawImage(sprite, 0, 50, 395, 50, 0, 50, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 275, 400, 50); 
 	ctx.drawImage(sprite, 0, 115, 395, 50, 0, 475, 400, 50);
-
-	ctx.fillRect(15, 75, 30, 25); 
-	ctx.fillRect(100, 75, 30, 25);
-	ctx.fillRect(185, 75, 30, 25);
-	ctx.fillRect(270, 75, 30, 25);
-	ctx.fillRect(355, 75, 30, 25);
+	
+	ctx.fillStyle = "#006666"; 
+	for(i=0;i<lilyPads.length;i++){
+		ctx.fillRect(lilyPads[i].x, lilyPads[i].y, lilyPads[i].width, 25);
+	}
 }
 
 function render_frog_position(frog_x, frog_y) 
@@ -522,7 +521,7 @@ function checkWater()
 		//do nothing. 
 	}
 //else, if it's in the water section, it dies. 
-	else if(frog.y < water.height) {
+	else if((frog.y > lpY) && (frog.y < water.height))  {
 		restartFrogger(); 
 		numLives = numLives -1;
 	}
