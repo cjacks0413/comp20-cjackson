@@ -50,10 +50,8 @@ var cWidth = 30;
 var lheight = 20; 
 var cHeight = 23; 
 var time = 30; 
-allSprites = new Array();
 allLogs = new Array(); 
 allCars = new Array();
-allCarsRight = new Array();
 lilyPads = new Array(); 
 lpHeight = 15;
 lpWidth = 25;
@@ -62,7 +60,6 @@ gameWon = false;
 
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
-allSprites.push(frog); 
 
 //was 30 and 300
 fly = new Object();
@@ -71,52 +68,42 @@ fly.width = 30; fly.height = 25;
 
 log1 = new Object();
 log1.x = 0; log1.y = 125; log1.width = 150; log1.height = lheight; log1.d = "right"; 
-allSprites.push(log1);
 allLogs.push(log1); 
 
 log2 = new Object();
 log2.x = 180; log2.y = 90; log2.width = 125; log2.height = lheight; log2.d = "left"; 
-allSprites.push(log2);
 allLogs.push(log2); 
 
 log3 = new Object();
 log3.x = 240; log3.y = 165; log3.width = 125; log3.height = lheight; log3.d = "left"; 
-allSprites.push(log3); 
 allLogs.push(log3); 
 
 log4 = new Object();
 log4.x = -240; log4.y = 165; log4.width = 125; log4.height = lheight; log4.d = "left"; 
-allSprites.push(log4);
 allLogs.push(log4); 
 
 log5 = new Object();
 log5.x = -500; log5.y = 205; log5.width = 100; log5.height = lheight; log5.d = "right"; 
-allSprites.push(log5);
 allLogs.push(log5); 
 
 log6 = new Object();
 log6.x = 440; log6.x = 205; log6.width = 125; log6.height = lheight; log6.d = "right"; 
-allSprites.push(log6);
 allLogs.push(log6);
 
 log7 = new Object();
 log7.x = 150; log7.y = 240; log7.width = 125; log7.height = lheight; log7.d = "left"; 
-allSprites.push(log7);
 allLogs.push(log7);
 
 log8 = new Object();
 log8.x = 300; log8.y = 125; log8.width = 100; log8.height = lheight; log8.d = "right"; 
-allSprites.push(log8);
 allLogs.push(log8); 
 
 log9 = new Object();
 log9.x = 560; log9.y = 165; log9.width = 100; log9.height = lheight; log9.d = "left"; 
-allSprites.push(log9);
 allLogs.push(log9); 
 
 log10 = new Object();
 log10.x = -350; log10.y = 240; log10.width = 115; log10.height = lheight; log10.d = "left"; 
-allSprites.push(log10); 
 allLogs.push(log10); 
 
 log11 = new Object();
@@ -141,68 +128,54 @@ allLogs.push(log15);
 
 car1 = new Object(); 
 car1.x = 30; car1.y = 340; car1.width = cWidth; car1.height = cHeight; car1.d = "right";
-allSprites.push(car1);
 allCars.push(car1); 
-
 
 car2 = new Object();
 car2.x = -400; car2.y = 340; car2.width = cWidth; car2.height = cHeight; car2.d = "right";
-allSprites.push(car2);
 allCars.push(car2); 
 
 car3 = new Object();
 car3.x = 200; car3.y = 410; car3.width = cWidth; car3.height = cHeight; car3.d = "right"; 
-allSprites.push(car3);
 allCars.push(car3);
 
 car4 = new Object();
 car4.x = -300; car4.y = 410; car4.width = cWidth; car4.height = cHeight; car4.d = "right";
-allSprites.push(car4);
 allCars.push(car4);
 
 car5 = new Object();
 car5.x = -240; car5.y = 305; car5.width = cWidth; car5.height = cHeight; car5.d = "left"; 
-allSprites.push(car5); 
 allCars.push(car5); 
 
 car6 = new Object();
 car6.x = 300; car6.y = 305; car6.width = 70; car6.height = cHeight; car6.d = "left";
-allSprites.push(car6);
 allCars.push(car6);
 
 car7 = new Object();
 car7.x = 0; car7.y = 305; car7.width = 70; car7.height = cHeight; car7.d = "left";
-allSprites.push(car7);
 allCars.push(car7);
 
 car8 = new Object();
 car8.x = 40; car8.y = 375; car8.width = cWidth; car8.height = cHeight; car8.d = "left"; 
-allSprites.push(car8);
 allCars.push(car8);
 
 car9 = new Object();
 car9.x = -330; car9.y = 375; car9.width = cWidth; car9.height = cHeight; car9.d = "left"; 
-allSprites.push(car9);
 allCars.push(car9);
 
 car10 = new Object();
 car10.x = 240; car10.y = 375; car10.width = cWidth; car10.height = cHeight; car10.d = "left";
-allSprites.push(car10);
 allCars.push(car10); 
 
 car11 = new Object();
 car11.x = 0; car11.y = 445; car11.width = cWidth; car11.height = cHeight; car11.d = "left";
-allSprites.push(car11);
 allCars.push(car11);
 
 car12 = new Object();
 car12.x = 300; car12.y = 445; car12.width = cWidth; car12.height = cHeight; car12.d = "left";
-allSprites.push(car12);
 allCars.push(car12);
 
 car13 = new Object();
 car13.x = -250; car13.y = 445; car13.width = cWidth; car12.height = cHeight; car13.d = "left";
-allSprites.push(car13);
 allCars.push(car13); 
 
 car14 = new Object();
@@ -234,7 +207,7 @@ lp5.x = 355; lp5.y = lpY ; lp5.width = lpWidth; lp5.height = lpHeight; lp5.isSaf
 lilyPads.push(lp5);
 
 water = new Object();
-water.x = 0; water.y = 0; water.width = 400; water.height = 250;
+water.x = 0; water.y = 0; water.width = 400; water.height = 255;
 
 counter =  0; 
 var endTime; 
@@ -684,18 +657,6 @@ function setCars()
 				allCars[i].x = 800;
 			}
 		}
-	}
-}
-//determine when game board should be re-initialized
-function isNewRound()
-{
-
-	if (numSafeFrogs == 5) {
-		score += 1000; 
-		return true;
-	}	
-	else {
-		return false;
 	}
 }
 
