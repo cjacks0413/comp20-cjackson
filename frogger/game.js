@@ -56,7 +56,9 @@ allCars = new Array();
 allCarsRight = new Array();
 lilyPads = new Array(); 
 lpHeight = 15;
+lpWidth = 25;
 lpY = 75;
+gameWon = false; 
 
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
@@ -81,7 +83,7 @@ allSprites.push(log3);
 allLogs.push(log3); 
 
 log4 = new Object();
-log4.x = -240; log4.y = 165; log4.width = 100; log4.height = lheight; log4.d = "left"; 
+log4.x = -240; log4.y = 165; log4.width = 125; log4.height = lheight; log4.d = "left"; 
 allSprites.push(log4);
 allLogs.push(log4); 
 
@@ -210,23 +212,23 @@ car15.x = 0; car15.y = 410; car14.width = cWidth; car15.height = cHeight; car15.
 allCars.push(car15);
 
 lp1 = new Object();
-lp1.x = 15; lp1.y = lpY ; lp1.width = 30; lp1.height = lpHeight; lp1.isSafe = false; 
+lp1.x = 15; lp1.y = lpY ; lp1.width = lpWidth; lp1.height = lpHeight; lp1.isSafe = false; 
 lilyPads.push(lp1);
 
 lp2 = new Object();
-lp2.x = 100; lp2.y = lpY ; lp2.width = 25; lp2.height = lpHeight; lp2.isSafe = false;
+lp2.x = 100; lp2.y = lpY ; lp2.width =lpWidth; lp2.height = lpHeight; lp2.isSafe = false;
 lilyPads.push(lp2);
 
 lp3 = new Object(); 
-lp3.x = 185; lp3.y = lpY ; lp3.width = 25; lp3.height = lpHeight; lp3.isSafe = false; 
+lp3.x = 185; lp3.y = lpY ; lp3.width = lpWidth; lp3.height = lpHeight; lp3.isSafe = false; 
 lilyPads.push(lp3); 
 
 lp4 = new Object();
-lp4.x = 270; lp4.y = lpY ; lp4.width = 25; lp4.height = lpHeight; lp4.isSafe = false; 
+lp4.x = 270; lp4.y = lpY ; lp4.width = lpWidth; lp4.height = lpHeight; lp4.isSafe = false; 
 lilyPads.push(lp4);
 
 lp5 = new Object();
-lp5.x = 355; lp5.y = lpY ; lp5.width = 25; lp5.height = lpHeight; lp5.isSafe = false;
+lp5.x = 355; lp5.y = lpY ; lp5.width = lpWidth; lp5.height = lpHeight; lp5.isSafe = false;
 lilyPads.push(lp5);
 
 water = new Object();
@@ -366,24 +368,7 @@ function renderLilyPads()
 	
 }
 
-function checkLilyPads()
-{
-	for(i=0;i<lilyPads.length;i++) {
- 		if(isColliding(frog,lilyPads[i])) {
- 			lilyPads[i].isSafe = true; 
- 			score += 50; 
- 			frog.x = startX;
- 			frog.y = startY; 
- 			numSafeFrogs += 1;
- 			if(numSafeFrogs == 5) {
- 				score += 1000;
- 				extraPoints = Math.floor((endGameTime - Math.floor(elapsed)) * 10) 
-				score =+ extraPoints; 
- 				window.clearInterval(intervalId); 
- 			} 
- 	 	}
- 	 }	
-}
+
 function render_logs() 
 {
 	row1 = 90; 
@@ -466,8 +451,14 @@ function render_footer()
 		ctx.drawImage(dead, 0, 0, 30, 30, oldX -3 , oldY-3, 45, 45);
 		restartTime += 30;
 		if(restartTime > 600) {
+			restartTime = 0;
 			restart = false;
 		}
+	}
+	if(gameWon) {
+		ctx.font = '30pt Arial';
+		ctx.fillText("YOU WON! :D ", 40, 300);
+		window.clearInterval(intervalId);
 	}
 	if(isGameOver()){
 		ctx.drawImage(dead, 0, 0, 30, 30, frog.x -3 , frog.y-3, 45, 45); 
@@ -602,7 +593,46 @@ function checkLogs()
 	}
 }
 
+function checkLilyPads()
+{
+	for(i=0;i<lilyPads.length;i++) {
+ 		if(isColliding(frog,lilyPads[i])) {
+ 			if(lilyPads[i].isSafe == false){
+ 				lilyPads[i].isSafe = true; 
+ 				score += 50; 
+ 				frog.x = startX;
+ 				frog.y = startY; 
+ 				numSafeFrogs += 1;
+ 				if(numSafeFrogs == 5) {
+ 					score += 1000;
+ 					extraPoints = Math.floor((endGameTime - Math.floor(elapsed)) * 10) 
+					score =+ extraPoints; 
+					gameWon = true; 
+ 				} 
+ 			}
+ 			else if(lilyPads[i].isSafe == true) {
+ 				numLives = numLives -1;
+ 				if(numLives != 0) {
+ 					restartFrogger(); 
+ 				}
+ 			}
+ 	 	}
+ 	 }
+ 	 missedLilyPad(); 
+}
 
+function missedLilyPad()
+{
+		if(frog.y < lpY) {
+			if( !isColliding(frog, lp1) || !isColliding(frog, lp2) || !isColliding(frog, lp3)
+			|| !isColliding(frog, lp4) || !isColliding(frog, lp5)) {
+					numLives = numLives -1;
+					if(numLives != 0) {
+						restartFrogger();
+					}
+			}
+		}
+}
 function isColliding(object1, object2) 
 {
 	if (object1.x < object2.x + object2.width  && object1.x + object1.width  > object2.x &&
