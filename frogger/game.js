@@ -111,23 +111,23 @@ allSprites.push(log10);
 allLogs.push(log10); 
 
 log11 = new Object();
-log11.x = -400; log10.y = 90; log11.width = 115; log11.height = lheight; log11.d = "left"; 
+log11.x = -400; log10.y = 90; log11.width = 125; log11.height = lheight; log11.d = "left"; 
 allLogs.push(log11);
 
 log12 = new Object();
-log12.x = 550; log12.y = 240; log12.width = 115; log12.height = lheight; log12.d = "left"; 
+log12.x = 550; log12.y = 240; log12.width = 125; log12.height = lheight; log12.d = "left"; 
 allLogs.push(log12);
 
 log13 = new Object(); 
-log13.x = -430; log13.y = 125; log13.width = 115; log13.height = lheight; log13.d = "right"; 
+log13.x = -430; log13.y = 125; log13.width = 100; log13.height = lheight; log13.d = "right"; 
 allLogs.push(log13);
 
 log14 = new Object();
-log14.x = -100; log14.y = 240; log14.width = 115; log14.height = lheight; log14.d = "left"; 
+log14.x = -100; log14.y = 240; log14.width = 100; log14.height = lheight; log14.d = "left"; 
 allLogs.push(log14); 
 
 log15 = new Object();
-log15.x = 100; log15.y = 205; log15.width = 115; log15.height = lheight; log15.d = "right"; 
+log15.x = 100; log15.y = 205; log15.width = 100; log15.height = lheight; log15.d = "right"; 
 allLogs.push(log15); 
 
 car1 = new Object(); 
@@ -306,6 +306,7 @@ function setFly()
 	endTime = Math.floor((Math.random()*400) + 150); 
 	ctx.drawImage(sprite, 130, 230, 40, 40, fly.x, fly.y, 40, 40); 
 }
+
 function add_colors()
 {
 	canColor = document.getElementById('game');
@@ -395,6 +396,7 @@ function render_logs()
 	ctx.drawImage(sprite, 0, 190, 250, 36, log13.x, log13.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 190, 250, 36, log14.x, log14.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 190, 250, 36, log15.x, log15.y, boardLogX, boardLogY); 
+
 /*	ctx.drawImage(sprite, 0, 187, 250, 38, -139 + posLog2, row4, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 187, 250, 38, -500 + posLog2, row1, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 187, 250, 38, -300 + posLog2, row4, boardLogX, boardLogY); */ 
@@ -463,7 +465,6 @@ function render_footer()
 	}
 	if(isGameOver()){
 		ctx.drawImage(dead, 0, 0, 30, 30, frog.x, frog.y, 30, 30); 
-//		render_frog_position(-100, -300); 
 		ctx.font = '30pt Arial'; 
 		ctx.fillText("GAME IS OVER :( ", 40, 300);
 		window.clearInterval(intervalId); 	
@@ -512,9 +513,10 @@ function checkCollisions()
 	} 
 	checkLogs();
 	checkWater(); 
+	incrementFly(); 
 	checkFly(); 
 }
-function checkFly()
+function incrementFly()
 {
 	counter++; 
 	if(counter == endTime) {
@@ -524,11 +526,14 @@ function checkFly()
 		fly.x = num1;
 		fly.y = num2;
 		counter = 0; 
-	if(isColliding(frog, fly)) {
-			console.log("nice!");
-		}
 	}
 
+}
+function checkFly()
+{
+	if(isColliding(frog, fly)) {
+		console.log("oo");
+	}
 }
 function checkLogs()
 {
