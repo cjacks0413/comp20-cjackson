@@ -1,6 +1,8 @@
 //get sprite image 
 sprite = new Image();
 sprite.src = "assets/frogger_sprites.png"; 
+dead = new Image(); 
+dead.src = "assets/dead_frog.png";
 
 //global variables
 var intervalId; 
@@ -195,23 +197,23 @@ allSprites.push(car13);
 allCars.push(car13); 
 
 lp1 = new Object();
-lp1.x = 15; lp1.y = 75; lp1.width = 25; lp1.height = 25; lp1.isSafe = false; 
+lp1.x = 15; lp1.y = 75; lp1.width = 25; lp1.height = 20; lp1.isSafe = false; 
 lilyPads.push(lp1);
 
 lp2 = new Object();
-lp2.x = 100; lp2.y = 75; lp2.width = 25; lp2.height = 25; lp2.isSafe = false;
+lp2.x = 100; lp2.y = 75; lp2.width = 25; lp2.height = 20; lp2.isSafe = false;
 lilyPads.push(lp2);
 
 lp3 = new Object(); 
-lp3.x = 185; lp3.y = 75; lp3.width = 25; lp3.height = 25; lp3.isSafe = false; 
+lp3.x = 185; lp3.y = 75; lp3.width = 25; lp3.height = 20; lp3.isSafe = false; 
 lilyPads.push(lp3); 
 
 lp4 = new Object();
-lp4.x = 270; lp4.y = 75; lp4.width = 25; lp4.height = 25; lp4.isSafe = false; 
+lp4.x = 270; lp4.y = 75; lp4.width = 25; lp4.height = 20; lp4.isSafe = false; 
 lilyPads.push(lp4);
 
 lp5 = new Object();
-lp5.x = 355; lp5.y = 75; lp5.width = 25; lp5.height = 25; lp5.isSafe = false;
+lp5.x = 355; lp5.y = 75; lp5.width = 25; lp5.height = 20; lp5.isSafe = false;
 lilyPads.push(lp5);
 
 water = new Object();
@@ -460,6 +462,8 @@ function render_footer()
 		window.clearInterval(intervalId); 
 	}
 	if(isGameOver()){
+		ctx.drawImage(dead, 0, 0, 30, 30, frog.x, frog.y, 30, 30); 
+//		render_frog_position(-100, -300); 
 		ctx.font = '30pt Arial'; 
 		ctx.fillText("GAME IS OVER :( ", 40, 300);
 		window.clearInterval(intervalId); 	
@@ -471,6 +475,7 @@ function changeTimer()
 	timerX += .07;
 	
 }
+
 
 function checkWater()
 {
@@ -498,9 +503,11 @@ function checkCollisions()
 	{
 		if(isColliding(frog, allCars[i])) 
 		{
-			frog.x = startX;
-			frog.y = startY;
 			numLives = numLives -1;
+			if(numLives != 0) {
+				frog.x = startX;
+				frog.y = startY;
+			}
 		}
 	} 
 	checkLogs();
@@ -527,27 +534,34 @@ function checkLogs()
 {
 	for (i=0;i<allLogs.length;i++)
 	{
-		if(isColliding(frog, allLogs[i])) {
-			if(allLogs[i].d == "right") {
+		if(isColliding(frog, allLogs[i])) 
+		{
+			if(allLogs[i].d == "right")
+			{
 				if(frog.x < 375) {
 					frog.x = frog.x + 3; 
 					frog.y = allLogs[i].y; 
 				}
-				else {
-					frog.x = startX;
-					frog.y = startY;
+				else  {
 					numLives = numLives -1;
+					if(numLives != 0) {
+						frog.x = startX;
+						frog.y = startY;
+					}					
 				}
 			}
-			if(allLogs[i].d == "left") {
+			if(allLogs[i].d == "left")
+			{
 				if(frog.x > 0) {
 					frog.x = frog.x - 3;
 					frog.y = allLogs[i].y; 
 				}
 				else {
-					frog.x = startX;
-					frog.y = startY;
 					numLives = numLives -1; 
+					if(numLives != 0) {
+						frog.x = startX;
+						frog.y = startY;
+					}		
 				}
 			}
 		}
