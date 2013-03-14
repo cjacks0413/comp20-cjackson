@@ -81,7 +81,7 @@ allSprites.push(log3);
 allLogs.push(log3); 
 
 log4 = new Object();
-log4.x = -240; log4.y = 165; log4.width = 125; log4.height = lheight; log4.d = "left"; 
+log4.x = -240; log4.y = 165; log4.width = 100; log4.height = lheight; log4.d = "left"; 
 allSprites.push(log4);
 allLogs.push(log4); 
 
@@ -200,6 +200,14 @@ car13 = new Object();
 car13.x = -250; car13.y = 445; car13.width = cWidth; car12.height = cHeight; car13.d = "left";
 allSprites.push(car13);
 allCars.push(car13); 
+
+car14 = new Object();
+car14.x = 265; car14.y = 340; car14.width = cWidth; car14.height = cHeight; car14.d = "right";
+allCars.push(car14);
+
+car15 = new Object();
+car15.x = 0; car15.y = 410; car14.width = cWidth; car15.height = cHeight; car15.d = "right"; 
+allCars.push(car15);
 
 lp1 = new Object();
 lp1.x = 15; lp1.y = lpY ; lp1.width = 30; lp1.height = lpHeight; lp1.isSafe = false; 
@@ -409,7 +417,6 @@ function render_logs()
 
 function render_cars(pos1)
 {
-	//similar to render_logs
 	row1 = 445
 	row2 = 410
 	row3 = 375
@@ -418,8 +425,7 @@ function render_cars(pos1)
 		ctx.drawImage(sprite, 40, 260, 40, 40, car1.x, row4, 40, 40); 
 	    ctx.drawImage(sprite, 40, 260, 40, 40, car2.x, row4, 40, 40); 
 	    ctx.drawImage(sprite, 0, 290, 40, 40, car3.x, row2, 40, 40); 
-	    ctx.drawImage(sprite, 0, 290, 40 , 40, car4.x, row2, 40, 40);
-	    
+	    ctx.drawImage(sprite, 0, 290, 40 , 40, car4.x, row2, 40, 40);    
 	    ctx.drawImage(sprite, 100, 290, 70, 40, car5.x, row5, 60, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, car6.x, row5, 60, 40); 
 	    ctx.drawImage(sprite, 100, 290, 70, 40, car7.x, row5, 60, 40);     
@@ -429,6 +435,8 @@ function render_cars(pos1)
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, row1, 40, 40); 
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, row1, 40, 40);
 	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, row1, 40, 40); 
+	    ctx.drawImage(sprite, 40, 260, 40, 40, car14.x, car14.y, 40, 40);
+	    ctx.drawImage(sprite, 0, 290, 40, 40, car15.x, car15.y, 40, 40); 
 }
 
 function render_footer()
@@ -452,8 +460,6 @@ function render_footer()
 	elapsed = (new Date() - time)/ 1000;
 	if(elapsed > endGameTime) {
 		console.log(elapsed); 
-//		extraPoints = elapsed * 10;
-//		score =+ extraPoints; 
 		window.clearInterval(intervalId); 
 		numLives = 0; 
 	}
@@ -634,7 +640,7 @@ function setCars()
 {
 	for(i=0;i<allCars.length;i++) {
 		if(allCars[i].d == "right") {
-			allCars[i].x += 3;
+			allCars[i].x += 5;
 			if(allCars[i].x > canvasX) {
 				allCars[i].x = startLeft;
 			}
