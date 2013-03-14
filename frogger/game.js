@@ -8,6 +8,9 @@ dead.src = "assets/dead_frog.png";
 var intervalId; 
 oldFrogX = 0;
 oldFrogY = 0; 
+oldX = 0;
+oldY = 0; 
+restartTime = 0; 
 startX = 200;
 startY = 475; 
 numLives = 3; 
@@ -22,6 +25,7 @@ startLeft1 = -500;
 //interval = 60; 
 timerX = 260;
 timerWidth = 140; 
+endGameTime = 178; 
 canvasX = 500;
 canvasY = 565; 
 //log variables
@@ -223,6 +227,7 @@ counter =  0;
 var endTime; 
 deadFrogW = 0;
 deadFrogH = 0; 
+restart = false; 
 
 function start_game()
 {
@@ -438,7 +443,42 @@ function render_footer()
 	ctx.fillText(currentScore, 0, 560); 
 	currentHighScore = "Highscore: " + highScore; 
 	ctx.fillText(currentHighScore, 100, 560); 
-	//lives
+	renderLives(); 
+	changeTimer(); 
+	ctx.fillRect(timerX, 530, timerWidth, 25); 
+	elapsed = (new Date() - time)/ 1000;
+	if(elapsed > endGameTime) {
+		console.log(elapsed); 
+		extraPoints = elapsed * 10;
+		score =+ extraPoints; 
+		window.clearInterval(intervalId); 
+	}
+	if(restart){
+		ctx.drawImage(dead, 0, 0, 30, 30, oldX -3 , oldY-3, 45, 45);
+		restartTime += 30;
+		if(restartTime > 600) {
+			restart = false;
+		}
+	}
+	if(isGameOver()){
+		ctx.drawImage(dead, 0, 0, 30, 30, frog.x -3 , frog.y-3, 45, 45); 
+		ctx.font = '30pt Arial'; 
+		ctx.fillText("GAME IS OVER :( ", 40, 300);
+		window.clearInterval(intervalId); 	
+	}
+}
+
+function restartFrogger()
+{
+	oldX = frog.x;
+	oldY = frog.y; 
+	frog.x = startX;
+	frog.y = startY;
+	restart = true; 
+}
+
+function renderLives()
+{
 	if (numLives == 3) { 
 		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
 		ctx.drawImage(sprite, 0, 330, 35, 30, 15, 510, 30, 25); 
@@ -451,27 +491,11 @@ function render_footer()
 	if (numLives == 1) {
 		ctx.drawImage(sprite, 0, 330, 35, 30, 0, 510, 30, 25); 
 	}
-	changeTimer(); 
-	ctx.fillRect(timerX, 530, timerWidth, 25); 
-	if(timerX == 260.5) {
-		elapsed = (new Date() - time)/ 1000;
-		extraPoints = elapsed * 10;
-		score =+ extraPoints; 
-		window.clearInterval(intervalId); 
-	}
-	deadFrogW += 3;
-	deadFrogH += 3; 
-	if(isGameOver()){
-		ctx.drawImage(dead, 0, 0, 30, 30, frog.x -3 , frog.y-3, 45, 45); 
-		ctx.font = '30pt Arial'; 
-		ctx.fillText("GAME IS OVER :( ", 40, 300);
-		window.clearInterval(intervalId); 	
-	}
 }
 
 function changeTimer()
 {
-	timerX += .07;
+	timerX += .025;
 	
 }
 
@@ -489,8 +513,7 @@ function checkWater()
 	}
 //else, if it's in the water section, it dies. 
 	else if(frog.y < water.height) {
-		frog.x = startX;
-		frog.y = startY;
+		restartFrogger(); 
 		numLives = numLives -1;
 	}
 
@@ -504,8 +527,7 @@ function checkCollisions()
 		{
 			numLives = numLives -1;
 			if(numLives != 0) {
-				frog.x = startX;
-				frog.y = startY;
+				restartFrogger(); 
 			}
 		}
 	} 
@@ -518,7 +540,6 @@ function incrementFly()
 {
 	counter++; 
 	if(counter == endTime) {
-		console.log(counter); 
 		var num1 = Math.floor(Math.random()*375);
 		var num2 = Math.floor((Math.random()*475) + 100);
 		fly.x = num1;
@@ -550,8 +571,7 @@ function checkLogs()
 				else  {
 					numLives = numLives -1;
 					if(numLives != 0) {
-						frog.x = startX;
-						frog.y = startY;
+						restartFrogger(); 
 					}					
 				}
 			}
@@ -564,8 +584,7 @@ function checkLogs()
 				else {
 					numLives = numLives -1; 
 					if(numLives != 0) {
-						frog.x = startX;
-						frog.y = startY;
+						restartFrogger(); 
 					}		
 				}
 			}
