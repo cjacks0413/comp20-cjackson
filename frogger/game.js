@@ -52,7 +52,7 @@ lilyPads = new Array();
 
 
 frog = new Object();
-frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25;
+frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; frog.isOnWater = true; 
 allSprites.push(frog); 
 
 fly = new Object();
@@ -127,11 +127,7 @@ allLogs.push(log14);
 log15 = new Object();
 log15.x = 100; log15.y = 205; log15.width = 115; log15.height = lheight; log15.d = "right"; 
 allLogs.push(log15); 
-	row1 = 90; 
-	row2 = 125;
-	row3 = 165;
-	row4 = 205;
-	row5 = 240;
+
 car1 = new Object(); 
 car1.x = 30; car1.y = 340; car1.width = cWidth; car1.height = cHeight; car1.d = "right";
 allSprites.push(car1);
@@ -217,6 +213,9 @@ lilyPads.push(lp4);
 lp5 = new Object();
 lp5.x = 355; lp5.y = 75; lp5.width = 25; lp5.height = 25; lp5.isSafe = false;
 lilyPads.push(lp5);
+
+water = new Object();
+water.x = 0; water.y = 0; water.width = 400; water.height = 250;
 
 counter =  0; 
 var endTime; 
@@ -470,13 +469,40 @@ function changeTimer()
 
 function checkWater()
 {
+//if the frog is on any of the logs, it's good to go. 
+	if(isColliding(frog, log1) || isColliding(frog, log2) || isColliding(frog, log3)
+	|| isColliding(frog, log4) || isColliding(frog, log5) || isColliding(frog, log6) 
+	|| isColliding(frog, log7) || isColliding(frog, log8) || isColliding(frog, log9)
+	|| isColliding(frog, log10) || isColliding(frog, log11) || isColliding (frog, log12)
+	|| isColliding(frog, log13) || isColliding(frog, log14) || isColliding (frog, log15))
+	{
+		//do nothing. 
+	}
+//else, if it's in the water section, it dies. 
+	else if(frog.y < water.height) {
+		frog.x = startX;
+		frog.y = startY;
+		numLives = numLives -1;
+	}
+/*		if(frog.isOnWater == true) {
+			if(frog.y < water.height) {
+			console.log("whater");
+			}
+		}*/ 
+/*		if(frog.y < 250) {
+			console.log('test');
+		}*/ 
+	
+/*	if(isColliding(frog, water)) {
+		console.log("wattah");
+	}
 	for(i=0;i<allLogs.length;i++) {
 		if(!isColliding(frog, allLogs[i])) {
-			if(frog.y < 250) {
+			if(frog.y < water.y) {
 				console.log("you indawater");
 			}
 		}
-	}
+	} */
 	
 }
 function checkCollisions()
@@ -489,7 +515,7 @@ function checkCollisions()
 			frog.y = startY;
 			numLives = numLives -1;
 			if(numLives == 0){
-				window.clearInterval(intervalId); 
+			//	window.clearInterval(intervalId); 
 			}
 		}
 	} 
@@ -522,27 +548,39 @@ function checkLogs()
 				if(frog.x < 375) {
 					frog.x = frog.x + 3; 
 					frog.y = allLogs[i].y; 
+		//			frog.isOnWater = false;
 				}
 				else {
 					frog.x = startX;
 					frog.y = startY;
 					numLives = numLives -1;
+		//			frog.isOnWater = true;
 				}
 			}
 			if(allLogs[i].d == "left") {
 				if(frog.x > 0) {
 					frog.x = frog.x - 3;
 					frog.y = allLogs[i].y; 
+		//			frog.isOnWater = false; 
 				}
 				else {
 					frog.x = startX;
 					frog.y = startY;
 					numLives = numLives -1; 
+		//			frog.isOnWater = true; 
 				}
 			}
 		}
+
 	}
 }
+/*
+function isLogColliding(water, allLogs) 
+{
+	for(i=0;i<allLogs.length;i++) {
+		
+} */ 
+
 function isColliding(object1, object2) 
 {
 	if (object1.x < object2.x + object2.width  && object1.x + object1.width  > object2.x &&
