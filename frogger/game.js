@@ -54,11 +54,11 @@ lilyPads = new Array();
 
 
 frog = new Object();
-frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; frog.isOnWater = true; 
+frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
 allSprites.push(frog); 
 
 fly = new Object();
-fly.x = 0; fly.y = 0; fly.width = 30; flyheight = 25; 
+fly.x = 30; fly.y = 300; fly.width = 30; fly.height = 25; 
 
 log1 = new Object();
 log1.x = 0; log1.y = 125; log1.width = 150; log1.height = lheight; log1.d = "right"; 
@@ -374,11 +374,6 @@ function render_logs()
 	row3 = 165;
 	row4 = 205;
 	row5 = 240;
-	
-//rectangles:
-//	log
-//showing at beginning 
-//find out when overlapping happens, track in algorithm 
 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log1.x, log1.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log2.x, log2.y, boardLogX, boardLogY); 
@@ -390,7 +385,6 @@ function render_logs()
 	ctx.drawImage(sprite, 0, 190, 250, 36, log8.x, log8.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 190, 250, 36, log9.x, log9.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log10.x, log10.y, boardLogX, boardLogY); 
-//hidden at beginning
 	ctx.drawImage(sprite, 0, 155, 300, 40, log11.x, log11.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 155, 300, 40, log12.x, log12.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 190, 250, 36, log13.x, log13.y, boardLogX, boardLogY);
@@ -524,7 +518,7 @@ function incrementFly()
 		var num1 = Math.floor(Math.random()*375);
 		var num2 = Math.floor((Math.random()*475) + 100);
 		fly.x = num1;
-		fly.y = num2;
+		fly.y = num2; 
 		counter = 0; 
 	}
 
@@ -532,7 +526,9 @@ function incrementFly()
 function checkFly()
 {
 	if(isColliding(frog, fly)) {
-		console.log("oo");
+		fly.x = Math.floor(Math.random()*375);
+		fly.y = Math.floor((Math.random()*475) + 100);
+		score += 200;
 	}
 }
 function checkLogs()
