@@ -367,8 +367,12 @@ function checkLilyPads()
  			frog.x = startX;
  			frog.y = startY; 
  			numSafeFrogs += 1;
- 			if(numSafeFrogs == 5) {
+ 			if(numSafeFrogs == 1) {
  				score += 1000;
+ 				console.log(Math.floor(endGameTime - elapsed));
+ 				extraPoints = Math.floor((endGameTime - Math.floor(elapsed)) * 10) 
+ 				console.log(extraPoints); 
+				score =+ extraPoints; 
  				window.clearInterval(intervalId); 
  			} 
  	 	}
@@ -449,9 +453,10 @@ function render_footer()
 	elapsed = (new Date() - time)/ 1000;
 	if(elapsed > endGameTime) {
 		console.log(elapsed); 
-		extraPoints = elapsed * 10;
-		score =+ extraPoints; 
+//		extraPoints = elapsed * 10;
+//		score =+ extraPoints; 
 		window.clearInterval(intervalId); 
+		numLives = 0; 
 	}
 	if(restart){
 		ctx.drawImage(dead, 0, 0, 30, 30, oldX -3 , oldY-3, 45, 45);
