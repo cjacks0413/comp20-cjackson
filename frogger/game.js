@@ -64,8 +64,10 @@ frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
 allSprites.push(frog); 
 
+//was 30 and 300
 fly = new Object();
-fly.x = 30; fly.y = 300; fly.width = 30; fly.height = 25; 
+fly.x = Math.floor(Math.random()*375); fly.y = Math.floor((Math.random()*400) + 65); 
+fly.width = 30; fly.height = 25; 
 
 log1 = new Object();
 log1.x = 0; log1.y = 125; log1.width = 150; log1.height = lheight; log1.d = "right"; 
@@ -457,7 +459,7 @@ function render_footer()
 	}
 	if(gameWon) {
 		ctx.font = '30pt Arial';
-		ctx.fillText("YOU WON! :D ", 40, 300);
+		ctx.fillText("YOU WON! :D ", 60, 300);
 		window.clearInterval(intervalId);
 	}
 	if(isGameOver()){
@@ -513,8 +515,10 @@ function checkWater()
 	}
 //else, if it's in the water section, it dies. 
 	else if((frog.y > lpY) && (frog.y < water.height))  {
-		restartFrogger(); 
 		numLives = numLives -1;
+		if(numLives != 0) {
+			restartFrogger(); 
+		}
 	}
 
 	
@@ -541,7 +545,7 @@ function incrementFly()
 	counter++; 
 	if(counter == endTime) {
 		var num1 = Math.floor(Math.random()*375);
-		var num2 = Math.floor((Math.random()*475) + 100);
+		var num2 = Math.floor((Math.random()*475) + 65);
 		fly.x = num1;
 		fly.y = num2; 
 		counter = 0; 
