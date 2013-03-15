@@ -43,11 +43,10 @@ allLogs = new Array();
 allCars = new Array();
 lilyPads = new Array(); 
 
-
+//Objects
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
 
-//was 30 and 300
 fly = new Object();
 fly.x = Math.floor(Math.random()*375); fly.y = Math.floor((Math.random()*400) + 65); 
 fly.width = 30; fly.height = 25; 
@@ -244,12 +243,10 @@ function whatKey(event)
 			frog.y = 65;
 		}
 	}
-//	}
 }
 
 function draw_game()
 {
-//    canvas = document.getElementById('game');
 	if (canvas.getContext) {
  		ctx = canvas.getContext('2d');
 		ctx.clearRect(0,0,canvasX, canvasY); 
@@ -349,10 +346,7 @@ function render_logs()
 	ctx.drawImage(sprite, 0, 190, 250, 36, log13.x, log13.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 190, 250, 36, log14.x, log14.y, boardLogX, boardLogY);
 	ctx.drawImage(sprite, 0, 190, 250, 36, log15.x, log15.y, boardLogX, boardLogY); 
-
-/*	ctx.drawImage(sprite, 0, 187, 250, 38, -139 + posLog2, row4, boardLogX, boardLogY);
-	ctx.drawImage(sprite, 0, 187, 250, 38, -500 + posLog2, row1, boardLogX, boardLogY); 
-	ctx.drawImage(sprite, 0, 187, 250, 38, -300 + posLog2, row4, boardLogX, boardLogY); */ 
+ 
 }
 
 
@@ -480,6 +474,15 @@ function checkWater()
 }
 function checkCollisions()
 {
+	checkCars(); 
+	checkLogs();
+	checkWater(); 
+	incrementFly(); 
+	checkFly(); 
+}
+
+function checkCars()
+{
 	for(i=0;i<allCars.length;i++) 
 	{
 		if(isColliding(frog, allCars[i])) 
@@ -490,10 +493,6 @@ function checkCollisions()
 			}
 		}
 	} 
-	checkLogs();
-	checkWater(); 
-	incrementFly(); 
-	checkFly(); 
 }
 function incrementFly()
 {
