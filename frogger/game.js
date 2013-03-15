@@ -346,24 +346,20 @@ function render_logs()
 
 function render_cars(pos1)
 {
-	row1 = 445
-	row2 = 410
-	row3 = 375
-	row4 = 340
-	row5 = 305;
-		ctx.drawImage(sprite, 40, 260, 40, 40, car1.x, row4, 40, 40); 
-	    ctx.drawImage(sprite, 40, 260, 40, 40, car2.x, row4, 40, 40); 
-	    ctx.drawImage(sprite, 0, 290, 40, 40, car3.x, row2, 40, 40); 
-	    ctx.drawImage(sprite, 0, 290, 40 , 40, car4.x, row2, 40, 40);    
-	    ctx.drawImage(sprite, 100, 290, 70, 40, car5.x, row5, 60, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, car6.x, row5, 60, 40); 
-	    ctx.drawImage(sprite, 100, 290, 70, 40, car7.x, row5, 60, 40);     
-	    ctx.drawImage(sprite, 0, 260, 40, 40, car8.x, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, car9.x, row3, 40, 40); 
-	    ctx.drawImage(sprite, 0, 260, 40, 40, car10.x, row3, 40, 40); 
-	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, row1, 40, 40); 
-	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, row1, 40, 40);
-	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, row1, 40, 40); 
+
+		ctx.drawImage(sprite, 40, 260, 40, 40, car1.x, car1.y, 40, 40); 
+	    ctx.drawImage(sprite, 40, 260, 40, 40, car2.x, car2.y, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40, 40, car3.x, car3.y, 40, 40); 
+	    ctx.drawImage(sprite, 0, 290, 40 , 40, car4.x, car4.y, 40, 40);    
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car5.x, car5.y, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car6.x, car6.y, 60, 40); 
+	    ctx.drawImage(sprite, 100, 290, 70, 40, car7.x, car7.y, 60, 40);     
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car8.x, car8.y, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car9.x, car9.y, 40, 40); 
+	    ctx.drawImage(sprite, 0, 260, 40, 40, car10.x, car10.y, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car11.x, car11.y, 40, 40); 
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car12.x, car12.y, 40, 40);
+	    ctx.drawImage(sprite, 75, 260, 40, 40, car13.x, car13.y, 40, 40); 
 	    ctx.drawImage(sprite, 40, 260, 40, 40, car14.x, car14.y, 40, 40);
 	    ctx.drawImage(sprite, 0, 290, 40, 40, car15.x, car15.y, 40, 40); 
 }
