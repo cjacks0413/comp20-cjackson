@@ -13,50 +13,36 @@ oldY = 0;
 restartTime = 0; 
 startX = 200;
 startY = 475; 
-numLives = 3; 
-level = 1; 
+numLives = 3;
+level = 1;  
 score = 0; 
 highScore = 0;
-numSafeFrogs = 0; 
-speedLogs = 60; 
-speedCars = 500; 
+numSafeFrogs = 0;  
 startLeft = -500;
-startLeft1 = -500; 
-//interval = 60; 
 timerX = 260;
 timerWidth = 140; 
 endGameTime = 178; 
 canvasX = 500;
 canvasY = 565; 
-//log variables
-numLogs = 10; 
-medLogX = 155;
-medLogY = 300; 
 boardLogX = 250; 
 boardLogY = 40;
-posLogX = 40; 
-posLogY = 160;
-var l1 = 40; 
-var l2 = 0;
-var l3 = 0; 
-var l4 = 0; 
-var l5 = 0; 
-var l6 = 0; 
-var posLog1 = 0; 
-var posLog2 = 0; 
-var pCarRight = 0;
-var pCarLeft = 0; 
-var cWidth = 30;
-var lheight = 20; 
-var cHeight = 23; 
-var time = 30; 
-allLogs = new Array(); 
-allCars = new Array();
-lilyPads = new Array(); 
+cWidth = 30;
+lheight = 20; 
+cHeight = 23;  
+time = 30; 
 lpHeight = 15;
 lpWidth = 25;
 lpY = 75;
 gameWon = false; 
+counter =  0; 
+var endTime; 
+deadFrogW = 0;
+deadFrogH = 0; 
+restart = false; 
+allLogs = new Array(); 
+allCars = new Array();
+lilyPads = new Array(); 
+
 
 frog = new Object();
 frog.x = 220; frog.y = 475; frog.width = 30; frog.height = 25; 
@@ -209,11 +195,7 @@ lilyPads.push(lp5);
 water = new Object();
 water.x = 0; water.y = 0; water.width = 400; water.height = 255;
 
-counter =  0; 
-var endTime; 
-deadFrogW = 0;
-deadFrogH = 0; 
-restart = false; 
+
 
 function start_game()
 {
