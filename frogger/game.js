@@ -325,11 +325,6 @@ function renderLilyPads()
 
 function render_logs() 
 {
-	row1 = 90; 
-	row2 = 125;
-	row3 = 165;
-	row4 = 205;
-	row5 = 240;
 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log1.x, log1.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log2.x, log2.y, boardLogX, boardLogY); 
