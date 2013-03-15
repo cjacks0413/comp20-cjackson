@@ -68,7 +68,7 @@ log4.x = -240; log4.y = 165; log4.width = 125; log4.height = lheight; log4.d = "
 allLogs.push(log4); 
 
 log5 = new Object();
-log5.x = -500; log5.y = 205; log5.width = 100; log5.height = lheight; log5.d = "right"; 
+log5.x = -500; log5.y = 205; log5.width = 115; log5.height = lheight; log5.d = "right"; 
 allLogs.push(log5); 
 
 log6 = new Object();
@@ -108,7 +108,7 @@ log14.x = -100; log14.y = 240; log14.width = 100; log14.height = lheight; log14.
 allLogs.push(log14); 
 
 log15 = new Object();
-log15.x = 100; log15.y = 205; log15.width = 100; log15.height = lheight; log15.d = "right"; 
+log15.x = 100; log15.y = 205; log15.width = 115; log15.height = lheight; log15.d = "right"; 
 allLogs.push(log15); 
 
 car1 = new Object(); 
@@ -194,7 +194,7 @@ lilyPads.push(lp5);
 water = new Object();
 water.x = 0; water.y = 0; water.width = 400; water.height = 255;
 
-
+window.onload = start_game; 
 
 function start_game()
 {
@@ -336,8 +336,7 @@ function render_logs()
 	ctx.drawImage(sprite, 0, 155, 300, 40, log3.x, log3.y, boardLogX, boardLogY); 		
 	ctx.drawImage(sprite, 0, 155, 300, 40, log4.x, log4.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 190, 250, 36, log5.x, log5.y, boardLogX, boardLogY);
-	ctx.drawImage(sprite, 0, 187, 250, 38, log6.x, log6.y, 250, 35); 
-	ctx.drawImage(sprite, 0, 187, 250, 38, log7.x, log7.y, 240, 40); 
+	ctx.drawImage(sprite, 0, 187, 250, 38, log7.x, log7.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 190, 250, 36, log8.x, log8.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 190, 250, 36, log9.x, log9.y, boardLogX, boardLogY); 
 	ctx.drawImage(sprite, 0, 155, 300, 40, log10.x, log10.y, boardLogX, boardLogY); 
@@ -451,6 +450,16 @@ function changeTimer()
 }
 
 
+
+function checkCollisions()
+{
+	checkCars(); 
+	checkLogs();
+	checkWater(); 
+	incrementFly(); 
+	checkFly(); 
+}
+
 function checkWater()
 {
 //if the frog is on any of the logs, it's good to go. 
@@ -463,7 +472,8 @@ function checkWater()
 		//do nothing. 
 	}
 //else, if it's in the water section, it dies. 
-	else if((frog.y > lpY) && (frog.y < water.height))  {
+	else if((frog.y > lpY) && (frog.y < water.height))  
+	{
 		numLives = numLives -1;
 		if(numLives != 0) {
 			restartFrogger(); 
@@ -472,15 +482,6 @@ function checkWater()
 
 	
 }
-function checkCollisions()
-{
-	checkCars(); 
-	checkLogs();
-	checkWater(); 
-	incrementFly(); 
-	checkFly(); 
-}
-
 function checkCars()
 {
 	for(i=0;i<allCars.length;i++) 
@@ -497,7 +498,8 @@ function checkCars()
 function incrementFly()
 {
 	counter++; 
-	if(counter == endTime) {
+	if(counter == endTime) 
+	{
 		var num1 = Math.floor(Math.random()*375);
 		var num2 = Math.floor((Math.random()*475) + 65);
 		fly.x = num1;
