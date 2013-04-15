@@ -11,4 +11,5 @@ Collaborators: Sarah McDaniel, Tara Kola, Louis Rassaby, Trevor John, Jessie Ser
 Time: 15 hrs. 
 
 
-Note: All commits and pushes can be found on the Heroku app: http://rocky-refuge-4083.herokuapp.com/
+Note: The database starts empty; please post scores if you wish to use the app! 
+ All commits and pushes can be found on the Heroku app: http://rocky-refuge-4083.herokuapp.com/
