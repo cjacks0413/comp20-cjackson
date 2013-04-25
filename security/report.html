@@ -18,19 +18,38 @@ risks and providing suggestions to fix them.</p><hr/>
 <h2>Methodology</h2><hr/>
 <h2>Abstract of Findings</h2><hr/>
 <h2>Issues Found</h2><hr/>
-	<h3>Issue 1:</h3>
-	<ul><li>Location</li>
-		<li>Severity of issue</li>
-		<li>Description of issue</li>
-		<li>Resolution</li>
+	<h3>Issue 1: Score/User Validation</h3>
+	<ul><li>Location: /submit.json</li>
+		<li>Severity of issue: MEDIUM. Any user can send any score (truthful or fabricated)
+		to the Score Center, which delegitimizes the web application. If another website
+		uses the Score Center's GET API, they are expecting the top 10 scores that were
+		actually achieved on the requested game. </li>
+		<li>Description of issue: Currently, any user anywhere can submit a POST request
+		to the Score Center; the request does not even necessarily have to be from the same
+		game. Note the screen shot below.</li>
+		<img src="frog1.png" width="500" height="450" alt="frog1"/><br/> 
+</li>Here, I simply wrote a POST request into my frogger
+		game and gave myself an incredible score. But, note the actual games that sent the
+		request from: <br/>
+		<img src="game1.png" id="game" width="500" height="450" alt="game1"/>
+		<img src="game2.png" width="500" height="450" alt="game2"/><br/>
+		I got downwards of 400 points! However, on the Score Center, my made-up score is recorded:</li>
+		<img src="score1.png" width="500" height="450" alt="score1"/><br/>
+		That same made up score was sent for both games, and if I wanted to, I could even
+		fabricate the name of the game I was sending the information from. 
+		<li>Resolution: In order to be a truly legitimate recorder of high scores for online
+		games, the Score Center app needs to have user validation. Before being able to input
+		a score, you must be validated as a user that has administrative rights over the game, 
+		preventing random people from sending (1) bogus scores and (2) bogus scores for made-up
+		games.</li>
 	</ul> 
-	<h3>Issue 2:</h3> 
-		<ul><li>Location</li>
-		<li>Severity of issue</li>
-		<li>Description of issue</li>
-		<li>Resolution</li>
+	<h3>Issue 2: Database Injection</h3> 
+		<ul><li>Location: /submit.json</li>
+		<li>Severity of issue: HIGH. [description here]</li>
+		<li>Description of issue: </li>
+		<li>Resolution: </li>
 	</ul> 
-	<h3>Issue 3:</h3> 
+	<h3>Issue 3: Cross-Site Scripting</h3> 
 		<ul><li>Location</li>
 		<li>Severity of issue</li>
 		<li>Description of issue</li>
