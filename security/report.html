@@ -8,7 +8,7 @@
 
 <body>
 <h1>ScoreCenter Assessment</h1> 
-<h2>Introduction</h2><hr/>
+<hr/><h2>Introduction</h2><hr/>
 <p>The ScoreCenter Application provides a way for online HTML and HTML5 games to send 
 scores and get scores from an outside database. The ScoreCenter holds data from multiple
 games, and any website can send GET and POST requests to the application, as CORS is 
@@ -20,7 +20,7 @@ I first attempting to send a normal POST request. Then, I examined the ways in w
 still fit into the categories designated, while not providing the expected data, noting
 weaknesses. I then tested these perceived weaknesses, the results of which can be found below.
 </p>
-<p> Tools: I used Firefox'sTamper Data to check the status of requests.</p> 
+<p> Tools: I used Firefox'sTamper Data to check the status of requests.</p><hr/> 
 <h2>Abstract of Findings</h2><hr/>
 <p>There are several security risks present in the Score Center application, all of which stem
 from a lack of Input Validation.
@@ -33,10 +33,9 @@ from a lack of Input Validation.
 		<li>It is possible to send whatever information one desires, regardless of the 
 		score received, username inputted, or game being played. This delegitimizes the information
 		stored in the application.</li>
-	</ul></p> 
+	</ul></p><hr/> 
 <h2>Issues Found</h2><hr/>
-
-	<h3>Issue 1: Input Validation; Length of input</h3> 
+	<h3>Issue 1: Input Validation--Length of input</h3> 
 		<ul><li>Location: /submit.json</li>
 		<li>Severity of issue: HIGH. There is no limit on the amount of data a user can send
 		to the Score Center as a post request. It is, therefore, possible to send massive amounts
@@ -99,8 +98,7 @@ from a lack of Input Validation.
 		preventing random people from sending (1) bogus scores and (2) bogus scores for made-up
 		games.</li>
 	</ul> 
-
-</ul>
+</ul><hr/>
 <h2>Conclusion</h2><hr/> 
 <p>The weakest link in this web application is clearly /submit.json. There are numerous
 security risks that all boil down to a lack of input validation. At minimal cost of 50 dollars,
