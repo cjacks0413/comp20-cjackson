@@ -15,8 +15,25 @@ games, and any website can send GET and POST requests to the application, as COR
 enabled.</p>
 <p>We were hired to assess the security of this application, determining pertinent security
 risks and providing suggestions to fix them.</p><hr/> 
-<h2>Methodology</h2><hr/>
+<h2>Methodology</h2><hr/><p>I reviewed the source code for the web application, Score Center.To test the application,
+I first attempting to send a normal POST request. Then, I examined the ways in which I could
+still fit into the categories designated, while not providing the expected data, noting
+weaknesses. I then tested these perceived weaknesses, the results of which can be found below.
+</p>
+<p> Tools: I used Firefox'sTamper Data to check the status of requests.</p> 
 <h2>Abstract of Findings</h2><hr/>
+<p>There are several security risks present in the Score Center application, all of which stem
+from a lack of Input Validation.
+	<ul>
+		<li>It is possible to send any length of string or number into the POST Request. Therefore,
+		massive amounts of data can be sent to the web application, slowing down the page and
+		clogging up the database.</li>
+		<li>It is possible to add a script to the POST Request, resulting in the execution
+		of javascript scripts that are seen by all users of the website.</li>
+		<li>It is possible to send whatever information one desires, regardless of the 
+		score received, username inputted, or game being played. This delegitimizes the information
+		stored in the application.</li>
+	</ul></p> 
 <h2>Issues Found</h2><hr/>
 	<h3>Issue 3: Score/User Validation</h3>
 	<ul><li>Location: /submit.json</li>
