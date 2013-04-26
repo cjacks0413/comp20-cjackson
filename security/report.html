@@ -70,13 +70,23 @@ risks and providing suggestions to fix them.</p><hr/>
 		<li>Description of issue: It is possible to insert a script into the score field and 
 		send it to submit.json. Since this script is a field that is repeatedly printed onto
 		the screen, every time the page is loaded, each script that is sent is executed. First,
-		I did a simply alert tag, resulting in this: Then, I created popup windows and
-		replaced the website with another. Note that both of these actions occur every time
-		regardless of what I, or anyone else, submits to the ScoreCenter. </li>
+		I did a simply alert tag, resulting in this: <br/>
+		<img src="alert1.png" width="350" height="350" alt="alert1"/><br/>
+		Then, I created popup windowsand replaced the website with another: <br/>
+		<img src="crossside1.png" width="350" height="350" alt="cross11"/><br/>
+		Which resulted in this: <br/>
+		<img src="popups1.png" width="350" height="350" alt="popups1"/>
+		<img src="replace1.png" width="350" height="350" alt="replace1"/><br/> 
+ 		Note that both of these actions occur every time regardless of what I, or anyone else, submit to the ScoreCenter. </li>
 		<li>Resolution: Validate the input that is received and reject it if it is not 
 		exactly what is requested (a number, a string with no tags, etc).</li>
 	</ul> 
 </ul>
 <h2>Conclusion</h2><hr/> 
+<p>The weakest link in this web application is clearly /submit.json. There are numerous
+security risks that all boil down to a lack of input validation. At minimal cost of 50 dollars,
+we will be able to make your website more secure against attacks such as the ones demonstrated
+above. In future web applications, consider adding more processing of POSt request on
+the server-side. </p>
 </body> 
 </html> 
