@@ -18,7 +18,7 @@ risks and providing suggestions to fix them.</p><hr/>
 <h2>Methodology</h2><hr/>
 <h2>Abstract of Findings</h2><hr/>
 <h2>Issues Found</h2><hr/>
-	<h3>Issue 1: Score/User Validation</h3>
+	<h3>Issue 3: Score/User Validation</h3>
 	<ul><li>Location: /submit.json</li>
 		<li>Severity of issue: MEDIUM. Any user can send any score (truthful or fabricated)
 		to the Score Center, which delegitimizes the web application. If another website
@@ -31,7 +31,7 @@ risks and providing suggestions to fix them.</p><hr/>
 </li>Here, I simply wrote a POST request into my frogger
 		game and gave myself an incredible score. But, note the actual games that sent the
 		request from: <br/>
-		<img src="game1.png" id="game" width="500" height="450" alt="game1"/>
+		<img src="game1.png" width="500" height="450" alt="game1"/>
 		<img src="game2.png" width="500" height="450" alt="game2"/><br/>
 		I got downwards of 400 points! However, on the Score Center, my made-up score is recorded:</li>
 		<img src="score1.png" width="500" height="450" alt="score1"/><br/>
@@ -43,17 +43,38 @@ risks and providing suggestions to fix them.</p><hr/>
 		preventing random people from sending (1) bogus scores and (2) bogus scores for made-up
 		games.</li>
 	</ul> 
-	<h3>Issue 2: Database Injection</h3> 
+	<h3>Issue 2: Input Validation; Length of input</h3> 
 		<ul><li>Location: /submit.json</li>
-		<li>Severity of issue: HIGH. [description here]</li>
-		<li>Description of issue: </li>
-		<li>Resolution: </li>
+		<li>Severity of issue: HIGH. There is no limit on the amount of data a user can send
+		to the Score Center as a post request. It is, therefore, possible to send massive amounts
+		of data to the Score Center, resulting in both faulty data and a potential clogging of 
+		MongoDB.</li>
+		<li>Description of issue: To test this, I concatenated about 113680 lines of a
+		dictionary into a single string and sent it as a username several times: <br/>
+		<img src="words1.png" width="350" height="350" alt="words1"/></br/></li> 
+		Then, I concatenated more lines of the dictionary and added that to one previous, sending
+		it as a username several times: <br/>
+		<img src="load2.png" width="350" height="350" alt="load2"/></br> 
+		This severely slowed the loading of the page. After leaving the page and returning, it took
+		nearly 15 seconds to load: 
+		<img src="load1.png" width="350" height="350" alt="load1"/>
+		<li>Resolution: Limit the size of the input you are receiving. The size needs to be limited
+		for both the username field and the score field. While web browsers limit the size of the string
+		in the alert box, this can be bypassed, through the means demonstrated above.</li>
 	</ul> 
-	<h3>Issue 3: Cross-Site Scripting</h3> 
-		<ul><li>Location</li>
-		<li>Severity of issue</li>
-		<li>Description of issue</li>
-		<li>Resolution</li>
+	<h3>Issue 1: Cross-Site Scripting</h3> 
+		<ul><li>Location: /submit.json</li>
+		<li>Severity of issue: HIGH. Through the post request, it is possible to pass in a script
+		that will affect all of the users. This is an enormous problem, as it completely 
+		eliminates the usefulness and security of the site. </li>
+		<li>Description of issue: It is possible to insert a script into the score field and 
+		send it to submit.json. Since this script is a field that is repeatedly printed onto
+		the screen, every time the page is loaded, each script that is sent is executed. First,
+		I did a simply alert tag, resulting in this: Then, I created popup windows and
+		replaced the website with another. Note that both of these actions occur every time
+		regardless of what I, or anyone else, submits to the ScoreCenter. </li>
+		<li>Resolution: Validate the input that is received and reject it if it is not 
+		exactly what is requested (a number, a string with no tags, etc).</li>
 	</ul> 
 </ul>
 <h2>Conclusion</h2><hr/> 
